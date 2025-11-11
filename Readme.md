@@ -22,7 +22,8 @@ The system operates as a set of decoupled services behind an **API Gateway**. Da
 The current file structure ensures a clean separation of concerns, providing a solid foundation for development before services are individually containerized and deployed.
 
 ### 📁 Project Structure
-```
+
+---
 
 backend/
 ├───src/
@@ -73,7 +74,7 @@ backend/
 ├───package.json // Project dependencies and scripts
 └───nodemon.json // Development configurations
 
-```
+---
 
 ---
 
@@ -83,44 +84,44 @@ The architecture is built around five core logical services, defining clear doma
 
 ### 1. 🔑 Auth & User Service
 
-* **Description**: Manages user authentication, authorization, and core profile data.
-* **Database**: `UserDB` (PostgreSQL/MongoDB).
-* **Key Models**: `User`, `Session`.
-* **Key Logic**: Password hashing (bcrypt), JWT generation/validation.
-* **Supported Frontend**: Login, Registration, `UserProfile.tsx`.
+- **Description**: Manages user authentication, authorization, and core profile data.
+- **Database**: `UserDB` (PostgreSQL/MongoDB).
+- **Key Models**: `User`, `Session`.
+- **Key Logic**: Password hashing (bcrypt), JWT generation/validation.
+- **Supported Frontend**: Login, Registration, `UserProfile.tsx`.
 
 ### 2. 💰 Portfolio & Trade Service
 
-* **Description**: Manages user's asset holdings, trade history, and portfolio value calculations.
-* **Database**: `PortfolioDB` (PostgreSQL preferred for transactional data).
-* **Key Models**: `Portfolio`, `Holding`, `Transaction`.
-* **Key Logic**: Calculates **TOTAL VALUE** and **P&L TODAY** (requires Market Data). Manages trade recording (`addTrade`).
-* **Supported Frontend**: `SmartPortfolio.tsx`, "TOP POSITIONS."
+- **Description**: Manages user's asset holdings, trade history, and portfolio value calculations.
+- **Database**: `PortfolioDB` (PostgreSQL preferred for transactional data).
+- **Key Models**: `Portfolio`, `Holding`, `Transaction`.
+- **Key Logic**: Calculates **TOTAL VALUE** and **P&L TODAY** (requires Market Data). Manages trade recording (`addTrade`).
+- **Supported Frontend**: `SmartPortfolio.tsx`, "TOP POSITIONS."
 
 ### 3. 📈 Market Data Service
 
-* **Description**: Ingests, caches, and provides real-time and historical market data.
-* **Database**: `MarketDataDB` (TimescaleDB for time-series, Redis for cache).
-* **Key Models**: `Asset`, `RealtimeQuote`, `HistoricalQuote`, `MarketBreadth`.
-* **Key Functionality**: **Real-time Feed** via **WebSockets** (`ws://yourbackend/market-feed`). Data Ingestion from external APIs (e.g., Polygon.io).
-* **Supported Frontend**: `MARKET OVERVIEW`, real-time prices.
+- **Description**: Ingests, caches, and provides real-time and historical market data.
+- **Database**: `MarketDataDB` (TimescaleDB for time-series, Redis for cache).
+- **Key Models**: `Asset`, `RealtimeQuote`, `HistoricalQuote`, `MarketBreadth`.
+- **Key Functionality**: **Real-time Feed** via **WebSockets** (`ws://yourbackend/market-feed`). Data Ingestion from external APIs (e.g., Polygon.io).
+- **Supported Frontend**: `MARKET OVERVIEW`, real-time prices.
 
 ### 4. 🧠 AI Analytics & Optimization Service
 
-* **Description**: Houses core AI/ML models for risk assessment and portfolio optimization. Typically a separate **Python microservice** (FastAPI/Flask).
-* **Key Financial Calculations**:
-    * $\text{Sharpe Ratio}$
-    * $\text{Portfolio Beta}$
-    * $\text{Max Drawdown}$
-    * $\text{VaR}$ (Value at Risk)
-* **Key Logic**: Implements optimization algorithms (e.g., Markowitz, Black-Litterman models). Receives data from Portfolio and Market Data Services.
-* **Supported Frontend**: `AIAnalytics.tsx`, dashboard metrics like **BETA** and **SHARPE RATIO**.
+- **Description**: Houses core AI/ML models for risk assessment and portfolio optimization. Typically a separate **Python microservice** (FastAPI/Flask).
+- **Key Financial Calculations**:
+  - $\text{Sharpe Ratio}$
+  - $\text{Portfolio Beta}$
+  - $\text{Max Drawdown}$
+  - $\text{VaR}$ (Value at Risk)
+- **Key Logic**: Implements optimization algorithms (e.g., Markowitz, Black-Litterman models). Receives data from Portfolio and Market Data Services.
+- **Supported Frontend**: `AIAnalytics.tsx`, dashboard metrics like **BETA** and **SHARPE RATIO**.
 
 ### 5. 💻 System Monitoring Service
 
-* **Description**: Collects and provides operational metrics of the backend infrastructure.
-* **Key Logic**: Gathers host/container metrics (CPU, Memory, Network) using OS-level monitoring tools.
-* **Supported Frontend**: "SYSTEM STATUS" box.
+- **Description**: Collects and provides operational metrics of the backend infrastructure.
+- **Key Logic**: Gathers host/container metrics (CPU, Memory, Network) using OS-level monitoring tools.
+- **Supported Frontend**: "SYSTEM STATUS" box.
 
 ---
 
@@ -130,21 +131,21 @@ The system is designed for deployment on a container orchestration platform (Kub
 
 ### 🌐 Infrastructure Components
 
-| Component | Purpose | Dashboard Impact |
-| :--- | :--- | :--- |
-| **API Gateway** (Nginx, Kong, AWS API Gateway) | Single entry point, handling routing, global authentication, and rate limiting. | All client requests hit this first. |
-| **Caching Layer** (Redis) | Stores frequently accessed, non-persistent data (e.g., real-time market quotes). | Speeds up **MARKET OVERVIEW** and **TOTAL VALUE** metrics. |
-| **Message Broker** (Kafka, RabbitMQ) | Enables asynchronous, decoupled communication between services. | Improves system responsiveness and resilience. |
-| **Configuration Service** (Consul) | Centralized management of application configurations (DB credentials, API keys). | Eases deployment across microservices. |
-| **Container Orchestration** (Kubernetes) | Manages deployment, scaling, and networking. | Essential for high availability and horizontal scaling. |
+| Component                                      | Purpose                                                                          | Dashboard Impact                                           |
+| :--------------------------------------------- | :------------------------------------------------------------------------------- | :--------------------------------------------------------- |
+| **API Gateway** (Nginx, Kong, AWS API Gateway) | Single entry point, handling routing, global authentication, and rate limiting.  | All client requests hit this first.                        |
+| **Caching Layer** (Redis)                      | Stores frequently accessed, non-persistent data (e.g., real-time market quotes). | Speeds up **MARKET OVERVIEW** and **TOTAL VALUE** metrics. |
+| **Message Broker** (Kafka, RabbitMQ)           | Enables asynchronous, decoupled communication between services.                  | Improves system responsiveness and resilience.             |
+| **Configuration Service** (Consul)             | Centralized management of application configurations (DB credentials, API keys). | Eases deployment across microservices.                     |
+| **Container Orchestration** (Kubernetes)       | Manages deployment, scaling, and networking.                                     | Essential for high availability and horizontal scaling.    |
 
 ### 🛠️ Development & Operations Files
 
-| File/Folder | Purpose |
-| :--- | :--- |
-| **`.env`** | Environment variables specific to each service/container. |
-| **`Dockerfile`** | Defines the container image for each service. |
-| **`kubernetes/`** or **`docker-compose.yml`** | Deployment configurations. |
-| **`tests/`** | Location for unit, integration, and end-to-end tests. |
-| **`utils/logger.js`** | Centralized logging utility. |
+| File/Folder                                   | Purpose                                                   |
+| :-------------------------------------------- | :-------------------------------------------------------- |
+| **`.env`**                                    | Environment variables specific to each service/container. |
+| **`Dockerfile`**                              | Defines the container image for each service.             |
+| **`kubernetes/`** or **`docker-compose.yml`** | Deployment configurations.                                |
+| **`tests/`**                                  | Location for unit, integration, and end-to-end tests.     |
+| **`utils/logger.js`**                         | Centralized logging utility.                              |
 ```
