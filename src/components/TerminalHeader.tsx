@@ -6,9 +6,10 @@ import { UserProfile } from './UserProfile';
 interface TerminalHeaderProps {
   user?: { username: string } | null;
   onLogout?: () => void;
+  onNavigate?: (section: string) => void;
 }
 
-export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout }) => {
+export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout, onNavigate }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [marketStatus, setMarketStatus] = useState('OPEN');
   const [showProfile, setShowProfile] = useState(false);
@@ -21,7 +22,7 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout }
   }, []);
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
+    return date.toLocaleTimeString('en-US', {
       hour12: false,
       hour: '2-digit',
       minute: '2-digit',
@@ -37,17 +38,17 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout }
           <div className="w-2 h-2 bg-terminal-success rounded-full animate-pulse-slow"></div>
           <span className="text-terminal-success">ALPHA MIND v2.1.4</span>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <Activity className="w-3 h-3 text-terminal-accent" />
           <span className="text-terminal-text-dim">AI ENGINE: ACTIVE</span>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <Wifi className="w-3 h-3 text-terminal-success" />
           <span className="text-terminal-text-dim">FEED: REAL-TIME</span>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <Shield className="w-3 h-3 text-terminal-warning" />
           <span className="text-terminal-text-dim">ENCRYPTION: AES-256</span>
@@ -71,33 +72,36 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout }
             {marketStatus}
           </span>
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <Clock className="w-3 h-3 text-terminal-text-dim" />
           <span className="text-terminal-text font-mono">{formatTime(currentTime)}</span>
         </div>
-        
-        <button 
+
+        <button
           onClick={() => setShowProfile(true)}
           className="flex items-center space-x-2 hover:bg-terminal-panel rounded px-2 py-1 transition-colors"
         >
           <User className="w-3 h-3 text-terminal-accent" />
           <span className="text-terminal-accent">{user?.username || 'TRADER_001'}</span>
         </button>
-        
-        <button 
+
+        <button
           onClick={onLogout}
           className="p-1 hover:bg-terminal-panel rounded group"
           title="Logout"
         >
           <LogOut className="w-3 h-3 text-terminal-text-dim hover:text-terminal-danger group-hover:text-terminal-danger" />
         </button>
-        
-        <button className="p-1 hover:bg-terminal-panel rounded">
+
+        <button
+          onClick={() => onNavigate?.('settings')}
+          className="p-1 hover:bg-terminal-panel rounded"
+        >
           <Settings className="w-3 h-3 text-terminal-text-dim hover:text-terminal-accent" />
         </button>
       </div>
-      
+
       {showProfile && <UserProfile onClose={() => setShowProfile(false)} />}
     </div>
   );

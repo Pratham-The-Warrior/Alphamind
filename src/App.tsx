@@ -7,7 +7,9 @@ import { TerminalDashboard } from "./components/TerminalDashboard";
 import { TerminalMarkets } from "./components/TerminalMarkets";
 import { TerminalPortfolio } from "./components/TerminalPortfolio";
 import { TerminalAnalytics } from "./components/TerminalAnalytics";
+
 import { TerminalOptimizer } from "./components/TerminalOptimizer";
+import { TerminalSettings } from "./components/TerminalSettings";
 
 function App() {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -43,18 +45,7 @@ function App() {
       case "optimizer":
         return <TerminalOptimizer />;
       case "settings":
-        return (
-          <div className="p-4 flex items-center justify-center h-full">
-            <div className="text-center">
-              <div className="text-terminal-accent text-lg font-bold mb-2">
-                SYSTEM SETTINGS
-              </div>
-              <div className="text-terminal-text-muted">
-                Terminal configuration coming soon...
-              </div>
-            </div>
-          </div>
-        );
+        return <TerminalSettings />;
       default:
         return <TerminalDashboard />;
     }
@@ -63,7 +54,7 @@ function App() {
   return (
     <div className="h-screen bg-terminal-bg text-terminal-text font-mono overflow-hidden matrix-bg">
       {/* Terminal Header */}
-      <TerminalHeader user={user} onLogout={handleLogout} />
+      <TerminalHeader user={user} onLogout={handleLogout} onNavigate={setActiveSection} />
 
       <div className="flex h-[calc(100vh-40px)]">
         {/* Sidebar */}

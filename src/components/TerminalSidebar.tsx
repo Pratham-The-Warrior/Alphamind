@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Brain, 
-  PieChart, 
-  TrendingUp, 
-  BarChart3, 
-  Zap, 
+import {
+  Brain,
+  PieChart,
+  TrendingUp,
+  BarChart3,
+  Zap,
   Settings,
   ChevronRight
 } from 'lucide-react';
@@ -24,15 +24,15 @@ const navigation = [
   { id: 'settings', label: 'SETTINGS', icon: Settings, hotkey: 'F6' },
 ];
 
-export const TerminalSidebar: React.FC<TerminalSidebarProps> = ({ 
-  activeSection, 
-  onSectionChange 
+export const TerminalSidebar: React.FC<TerminalSidebarProps> = ({
+  activeSection,
+  onSectionChange
 }) => {
   return (
     <div className="w-48 bg-terminal-surface border-r border-terminal-border flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-terminal-border">
-        <div className="text-terminal-accent font-bold text-sm">ALPHA MIND</div>
+        <div className="text-terminal-accent font-bold text-lg">ALPHA MIND</div>
         <div className="text-terminal-text-muted text-xs">AI WEALTH TERMINAL</div>
       </div>
 
@@ -42,11 +42,10 @@ export const TerminalSidebar: React.FC<TerminalSidebarProps> = ({
           <motion.button
             key={item.id}
             onClick={() => onSectionChange(item.id)}
-            className={`w-full flex items-center justify-between p-3 mb-1 text-left transition-all duration-200 group ${
-              activeSection === item.id
+            className={`w-full flex items-center justify-between p-3 mb-1 text-left transition-all duration-200 group ${activeSection === item.id
                 ? 'bg-terminal-accent text-terminal-bg border-l-2 border-terminal-accent'
                 : 'text-terminal-text-dim hover:text-terminal-text hover:bg-terminal-panel'
-            }`}
+              }`}
             whileHover={{ x: 2 }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}

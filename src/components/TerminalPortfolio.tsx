@@ -74,6 +74,8 @@ const sectorAllocation = [
   { sector: 'Cash', weight: 5.1, value: 18900, pnl: 0 },
 ];
 
+
+
 const performanceMetrics = [
   { label: 'TOTAL VALUE', value: '$847,293.45', change: '+12.4%' },
   { label: 'DAY P&L', value: '+$23,847.32', change: '+2.89%' },
@@ -113,7 +115,7 @@ export const TerminalPortfolio: React.FC = () => {
             <BarChart3 className="w-4 h-4 text-terminal-accent" />
             <span className="text-terminal-accent text-sm font-bold">PORTFOLIO HOLDINGS</span>
           </div>
-          
+
           <div className="overflow-auto">
             <table className="w-full data-grid">
               <thead className="bg-terminal-surface">
@@ -149,14 +151,12 @@ export const TerminalPortfolio: React.FC = () => {
                     <td className="p-2 text-right text-terminal-text font-mono text-sm">
                       ${holding.marketValue.toLocaleString()}
                     </td>
-                    <td className={`p-2 text-right font-mono text-sm ${
-                      holding.pnl >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
-                    }`}>
+                    <td className={`p-2 text-right font-mono text-sm ${holding.pnl >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
+                      }`}>
                       {holding.pnl >= 0 ? '+' : ''}${holding.pnl.toLocaleString()}
                     </td>
-                    <td className={`p-2 text-right font-mono text-sm ${
-                      holding.pnlPct >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
-                    }`}>
+                    <td className={`p-2 text-right font-mono text-sm ${holding.pnlPct >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
+                      }`}>
                       {holding.pnlPct >= 0 ? '+' : ''}{holding.pnlPct.toFixed(2)}%
                     </td>
                     <td className="p-2 text-right text-terminal-text-dim font-mono text-sm">
@@ -180,7 +180,7 @@ export const TerminalPortfolio: React.FC = () => {
             <PieChart className="w-4 h-4 text-terminal-blue" />
             <span className="text-terminal-blue text-sm font-bold">SECTOR ALLOCATION</span>
           </div>
-          
+
           <div className="space-y-3">
             {sectorAllocation.map((sector, index) => (
               <div key={sector.sector}>
@@ -189,8 +189,8 @@ export const TerminalPortfolio: React.FC = () => {
                   <span className="text-terminal-text-dim text-xs">{sector.weight.toFixed(1)}%</span>
                 </div>
                 <div className="bg-terminal-surface h-2 rounded mb-1">
-                  <div 
-                    className="bg-terminal-accent h-2 rounded" 
+                  <div
+                    className="bg-terminal-accent h-2 rounded"
                     style={{ width: `${sector.weight}%` }}
                   ></div>
                 </div>
@@ -217,38 +217,38 @@ export const TerminalPortfolio: React.FC = () => {
           <DollarSign className="w-4 h-4 text-terminal-purple" />
           <span className="text-terminal-purple text-sm font-bold">PORTFOLIO ANALYTICS</span>
         </div>
-        
+
         <div className="grid grid-cols-6 gap-4">
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">BETA</div>
             <div className="text-terminal-text text-lg font-bold font-mono">1.24</div>
             <div className="text-terminal-success text-xs">vs S&P 500</div>
           </div>
-          
+
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">SHARPE RATIO</div>
             <div className="text-terminal-text text-lg font-bold font-mono">2.14</div>
             <div className="text-terminal-success text-xs">Excellent</div>
           </div>
-          
+
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">ALPHA</div>
             <div className="text-terminal-success text-lg font-bold font-mono">+3.2%</div>
             <div className="text-terminal-text-muted text-xs">vs Benchmark</div>
           </div>
-          
+
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">VOLATILITY</div>
             <div className="text-terminal-warning text-lg font-bold font-mono">18.4%</div>
             <div className="text-terminal-text-muted text-xs">Annualized</div>
           </div>
-          
+
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">MAX DRAWDOWN</div>
             <div className="text-terminal-danger text-lg font-bold font-mono">-8.4%</div>
             <div className="text-terminal-text-muted text-xs">Last 12M</div>
           </div>
-          
+
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">CORRELATION</div>
             <div className="text-terminal-text text-lg font-bold font-mono">0.78</div>
