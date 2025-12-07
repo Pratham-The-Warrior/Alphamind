@@ -25,6 +25,50 @@ The current file structure ensures a clean separation of concerns, providing a s
 
 ---
 
+alphamind version-1.0.2/
+└── project/
+    ├── .gitignore
+    ├── index.html
+    ├── package.json
+    ├── package-lock.json
+    ├── postcss.config.js
+    ├── tailwind.config.js
+    ├── tsconfig.json
+    ├── tsconfig.app.json
+    ├── tsconfig.node.json
+    ├── vite.config.ts
+    ├── public/
+    └── src/
+        ├── App.tsx
+        ├── index.css
+        ├── main.tsx
+        ├── vite-env.d.ts
+        ├── components/
+        │   ├── AIAnalytics.tsx
+        │   ├── AIDashboard.tsx
+        │   ├── AllMarkets.tsx
+        │   ├── CTAStrip.tsx
+        │   ├── LoginForm.tsx
+        │   ├── PortfolioHistoryChart.tsx
+        │   ├── RiskOptimizer.tsx
+        │   ├── Sidebar.tsx
+        │   ├── SmartPortfolio.tsx
+        │   ├── TerminalAnalytics.tsx
+        │   ├── TerminalDashboard.tsx
+        │   ├── TerminalHeader.tsx
+        │   ├── TerminalMarkets.tsx
+        │   ├── TerminalOptimizer.tsx
+        │   ├── TerminalPortfolio.tsx
+        │   ├── TerminalSettings.tsx
+        │   ├── TerminalSidebar.tsx
+        │   ├── ThemeToggle.tsx
+        │   ├── TopBar.tsx
+        │   └── UserProfile.tsx
+        └── contexts/
+            └── ThemeContext.tsx
+
+---
+
 backend/
 ├───src/
 │ ├───app.js // Main entry point (Express setup, middleware, routes)
