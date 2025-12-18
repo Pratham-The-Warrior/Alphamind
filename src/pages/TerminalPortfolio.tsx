@@ -1,80 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PieChart, TrendingUp, TrendingDown, BarChart3, DollarSign } from 'lucide-react';
+import { PieChart, BarChart3, DollarSign } from 'lucide-react';
 
-const portfolioHoldings = [
-  {
-    symbol: 'AAPL',
-    name: 'Apple Inc.',
-    shares: 1250,
-    avgCost: 175.23,
-    currentPrice: 189.84,
-    marketValue: 237300,
-    pnl: 18262.50,
-    pnlPct: 8.34,
-    weight: 15.2,
-    sector: 'Technology'
-  },
-  {
-    symbol: 'MSFT',
-    name: 'Microsoft Corp.',
-    shares: 800,
-    avgCost: 365.45,
-    currentPrice: 378.92,
-    marketValue: 303136,
-    pnl: 10776.00,
-    pnlPct: 3.69,
-    weight: 12.8,
-    sector: 'Technology'
-  },
-  {
-    symbol: 'GOOGL',
-    name: 'Alphabet Inc.',
-    shares: 450,
-    avgCost: 148.90,
-    currentPrice: 142.67,
-    marketValue: 64201.50,
-    pnl: -2803.50,
-    pnlPct: -4.18,
-    weight: 8.9,
-    sector: 'Technology'
-  },
-  {
-    symbol: 'JPM',
-    name: 'JPMorgan Chase',
-    shares: 600,
-    avgCost: 145.67,
-    currentPrice: 152.34,
-    marketValue: 91404,
-    pnl: 4002.00,
-    pnlPct: 4.58,
-    weight: 7.3,
-    sector: 'Financials'
-  },
-  {
-    symbol: 'JNJ',
-    name: 'Johnson & Johnson',
-    shares: 400,
-    avgCost: 168.45,
-    currentPrice: 172.89,
-    marketValue: 69156,
-    pnl: 1776.00,
-    pnlPct: 2.64,
-    weight: 5.8,
-    sector: 'Healthcare'
-  },
-];
-
-const sectorAllocation = [
-  { sector: 'Technology', weight: 36.9, value: 604637.50, pnl: 26234.50 },
-  { sector: 'Financials', weight: 18.3, value: 91404, pnl: 4002.00 },
-  { sector: 'Healthcare', weight: 15.7, value: 69156, pnl: 1776.00 },
-  { sector: 'Energy', weight: 12.2, value: 45678, pnl: -1234.50 },
-  { sector: 'Consumer', weight: 11.8, value: 42345, pnl: 2345.00 },
-  { sector: 'Cash', weight: 5.1, value: 18900, pnl: 0 },
-];
-
-
+import {
+  portfolioHoldings,
+  sectorAllocation
+} from '../services/mockData';
 
 const performanceMetrics = [
   { label: 'TOTAL VALUE', value: '$847,293.45', change: '+12.4%' },
@@ -131,7 +62,7 @@ export const TerminalPortfolio: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {portfolioHoldings.map((holding, index) => (
+                {portfolioHoldings.map((holding) => (
                   <tr key={holding.symbol} className="border-b border-terminal-border hover:bg-terminal-surface">
                     <td className="p-2">
                       <div>
@@ -182,7 +113,7 @@ export const TerminalPortfolio: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            {sectorAllocation.map((sector, index) => (
+            {sectorAllocation.map((sector) => (
               <div key={sector.sector}>
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-terminal-text text-xs font-bold">{sector.sector}</span>

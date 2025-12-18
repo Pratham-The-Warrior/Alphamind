@@ -2,32 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Search, Filter, Star } from 'lucide-react';
 
-const marketCategories = [
-  { id: 'all', label: 'All Markets', count: 2847 },
-  { id: 'stocks', label: 'Stocks', count: 1234 },
-  { id: 'crypto', label: 'Crypto', count: 456 },
-  { id: 'bonds', label: 'Bonds', count: 789 },
-  { id: 'commodities', label: 'Commodities', count: 234 },
-  { id: 'forex', label: 'Forex', count: 134 }
-];
-
-const topAssets = [
-  { symbol: 'AAPL', name: 'Apple Inc.', price: 189.84, change: +2.34, changePercent: +1.25, market: 'NASDAQ', category: 'stocks' },
-  { symbol: 'BTC', name: 'Bitcoin', price: 67234.56, change: +1234.56, changePercent: +1.87, market: 'Crypto', category: 'crypto' },
-  { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 142.67, change: -1.23, changePercent: -0.85, market: 'NASDAQ', category: 'stocks' },
-  { symbol: 'ETH', name: 'Ethereum', price: 3456.78, change: +89.12, changePercent: +2.64, market: 'Crypto', category: 'crypto' },
-  { symbol: 'TSLA', name: 'Tesla Inc.', price: 234.56, change: +5.67, changePercent: +2.48, market: 'NASDAQ', category: 'stocks' },
-  { symbol: 'GLD', name: 'Gold ETF', price: 189.45, change: +0.89, changePercent: +0.47, market: 'NYSE', category: 'commodities' },
-  { symbol: 'TLT', name: '20+ Year Treasury', price: 89.34, change: -0.45, changePercent: -0.50, market: 'NYSE', category: 'bonds' },
-  { symbol: 'SOL', name: 'Solana', price: 156.78, change: +12.34, changePercent: +8.54, market: 'Crypto', category: 'crypto' }
-];
-
-const marketIndices = [
-  { name: 'S&P 500', value: 4567.89, change: +23.45, changePercent: +0.52 },
-  { name: 'NASDAQ', value: 14234.56, change: +89.12, changePercent: +0.63 },
-  { name: 'Dow Jones', value: 34567.89, change: -45.67, changePercent: -0.13 },
-  { name: 'Bitcoin Index', value: 67234.56, change: +1234.56, changePercent: +1.87 }
-];
+import {
+  allMarketsCategories as marketCategories,
+  allMarketsAssets as topAssets,
+  allMarketsIndices as marketIndices
+} from '../services/mockData';
 
 export const AllMarkets: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -36,7 +15,7 @@ export const AllMarkets: React.FC = () => {
   const filteredAssets = topAssets.filter(asset => {
     const matchesCategory = activeCategory === 'all' || asset.category === activeCategory;
     const matchesSearch = asset.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         asset.name.toLowerCase().includes(searchTerm.toLowerCase());
+      asset.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -81,7 +60,7 @@ export const AllMarkets: React.FC = () => {
       >
         <h2 className="text-xl font-bold text-light-text dark:text-dark-text font-editorial mb-4">Market Indices</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {marketIndices.map((index, i) => (
+          {marketIndices.map((index: any, i: number) => (
             <motion.div
               key={index.name}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -115,17 +94,16 @@ export const AllMarkets: React.FC = () => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="flex flex-wrap gap-3"
       >
-        {marketCategories.map((category) => (
+        {marketCategories.map((category: any) => (
           <motion.button
             key={category.id}
             onClick={() => setActiveCategory(category.id)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
-              activeCategory === category.id
-                ? 'bg-lime-accent text-dark-base shadow-glow'
-                : 'bg-light-glass dark:bg-dark-glass text-light-text dark:text-dark-text hover:bg-lime-accent/10'
-            }`}
+            className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 ${activeCategory === category.id
+              ? 'bg-lime-accent text-dark-base shadow-glow'
+              : 'bg-light-glass dark:bg-dark-glass text-light-text dark:text-dark-text hover:bg-lime-accent/10'
+              }`}
           >
             {category.label} ({category.count})
           </motion.button>
@@ -141,10 +119,10 @@ export const AllMarkets: React.FC = () => {
       >
         <div className="p-6 border-b border-light-border dark:border-dark-border">
           <h2 className="text-xl font-bold text-light-text dark:text-dark-text font-editorial">
-            {activeCategory === 'all' ? 'All Assets' : marketCategories.find(c => c.id === activeCategory)?.label}
+            {activeCategory === 'all' ? 'All Assets' : marketCategories.find((c: any) => c.id === activeCategory)?.label}
           </h2>
         </div>
-        
+
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-light-glass dark:bg-dark-glass">
@@ -157,7 +135,7 @@ export const AllMarkets: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredAssets.map((asset, index) => (
+              {filteredAssets.map((asset: any, index: number) => (
                 <motion.tr
                   key={asset.symbol}
                   initial={{ opacity: 0, x: -20 }}

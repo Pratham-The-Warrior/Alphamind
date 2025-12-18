@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  BarChart3,
   TrendingUp,
   Brain,
   Target,
@@ -10,87 +9,11 @@ import {
 } from "lucide-react";
 
 // later will be automated //
-const analyticsData = [
-  {
-    title: "Portfolio Performance",
-    value: "+18.7%",
-    subtitle: "vs S&P 500: +12.3%",
-    trend: "up",
-    confidence: 94,
-  },
-  {
-    title: "Risk Score",
-    value: "6.2/10",
-    subtitle: "Moderate Risk",
-    trend: "stable",
-    confidence: 87,
-  },
-  {
-    title: "Sharpe Ratio",
-    value: "2.14",
-    subtitle: "Excellent",
-    trend: "up",
-    confidence: 91,
-  },
-  {
-    title: "Max Drawdown",
-    value: "-8.4%",
-    subtitle: "Better than benchmark",
-    trend: "up",
-    confidence: 89,
-  },
-];
-
-// later we will automate these //
-const predictions = [
-  {
-    asset: "Technology Sector",
-    prediction: "Bullish",
-    timeframe: "3 months",
-    confidence: 78,
-    expectedReturn: "+12-18%",
-    reasoning: "AI adoption acceleration and strong earnings growth",
-  },
-  {
-    asset: "Emerging Markets",
-    prediction: "Neutral",
-    timeframe: "6 months",
-    confidence: 65,
-    expectedReturn: "+3-8%",
-    reasoning: "Mixed economic indicators, currency volatility",
-  },
-  {
-    asset: "Cryptocurrency",
-    prediction: "Bullish",
-    timeframe: "1 month",
-    confidence: 82,
-    expectedReturn: "+15-25%",
-    reasoning: "Institutional adoption and regulatory clarity",
-  },
-];
-// later we will use news predictor here...
-const riskFactors = [
-  {
-    factor: "Market Volatility",
-    level: "Medium",
-    impact: "Portfolio may see 10-15% swings",
-  },
-  {
-    factor: "Interest Rate Risk",
-    level: "Low",
-    impact: "Minimal impact on current allocation",
-  },
-  {
-    factor: "Sector Concentration",
-    level: "High",
-    impact: "Tech exposure at 45% - consider diversification",
-  },
-  {
-    factor: "Currency Risk",
-    level: "Medium",
-    impact: "International holdings subject to FX fluctuations",
-  },
-];
+import {
+  aiAnalyticsData as analyticsData,
+  aiPredictions as predictions,
+  aiRiskFactors as riskFactors
+} from '../services/mockData';
 
 export const AIAnalytics: React.FC = () => {
   return (
@@ -195,13 +118,12 @@ export const AIAnalytics: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <span
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      prediction.prediction === "Bullish"
-                        ? "bg-lime-accent/20 text-lime-accent"
-                        : prediction.prediction === "Bearish"
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${prediction.prediction === "Bullish"
+                      ? "bg-lime-accent/20 text-lime-accent"
+                      : prediction.prediction === "Bearish"
                         ? "bg-red-500/20 text-red-400"
                         : "bg-yellow-500/20 text-yellow-400"
-                    }`}
+                      }`}
                   >
                     {prediction.prediction}
                   </span>
@@ -264,13 +186,12 @@ export const AIAnalytics: React.FC = () => {
                       {risk.factor}
                     </h3>
                     <span
-                      className={`text-xs px-2 py-1 rounded-full ${
-                        risk.level === "High"
-                          ? "bg-red-500/20 text-red-400"
-                          : risk.level === "Medium"
+                      className={`text-xs px-2 py-1 rounded-full ${risk.level === "High"
+                        ? "bg-red-500/20 text-red-400"
+                        : risk.level === "Medium"
                           ? "bg-orange-500/20 text-orange-400"
                           : "bg-green-500/20 text-green-400"
-                      }`}
+                        }`}
                     >
                       {risk.level}
                     </span>

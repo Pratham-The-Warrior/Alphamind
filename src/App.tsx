@@ -1,35 +1,67 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { LoginForm } from "./components/LoginForm";
-import { TerminalHeader } from "./components/TerminalHeader";
-import { TerminalSidebar } from "./components/TerminalSidebar";
-import { TerminalDashboard } from "./components/TerminalDashboard";
-import { TerminalMarkets } from "./components/TerminalMarkets";
-import { TerminalPortfolio } from "./components/TerminalPortfolio";
-import { TerminalAnalytics } from "./components/TerminalAnalytics";
-
-import { TerminalOptimizer } from "./components/TerminalOptimizer";
-import { TerminalSettings } from "./components/TerminalSettings";
+import { LoginForm } from "./pages/LoginForm";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { ContactSupport } from "./pages/ContactSupport";
+import { SignupPage } from "./pages/SignupPage";
+import { LegalPage } from "./pages/LegalPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { MainLayout } from "./components/common/MainLayout";
+import { NotificationSystem, useNotifications } from "./components/ui/NotificationSystem";
+import { TerminalDashboard } from "./pages/TerminalDashboard";
+import { TerminalMarkets } from "./pages/TerminalMarkets";
+import { TerminalPortfolio } from "./pages/TerminalPortfolio";
+import { TerminalAnalytics } from "./pages/TerminalAnalytics";
+import { TerminalOptimizer } from "./pages/TerminalOptimizer";
+import { TerminalSettings } from "./pages/TerminalSettings";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const [activeSection, setActiveSection] = useState("dashboard");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<{ username: string } | null>(null);
-
-  const handleLogin = (credentials: { username: string; password: string }) => {
-    // In a real app, you'd validate credentials against a backend
-    setUser({ username: credentials.username });
-    setIsAuthenticated(true);
-  };
+  const [publicView, setPublicView] = useState<"login" | "forgot-password" | "contact-support" | "signup" | "privacy" | "terms" | "404">("login");
+  const { isAuthenticated, user, login, logout } = useAuth();
+  const { notifications, addNotification, removeNotification } = useNotifications();
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
+    logout();
     setActiveSection("dashboard");
+    setPublicView("login");
+    addNotification('info', 'Session terminated by user request.');
+  };
+
+  const handleLogin = (credentials: any) => {
+    login(credentials);
+    addNotification('success', `Welcome back, ${credentials.username}. Secure channel established.`);
+  };
+
+  const handleSignup = (userData: any) => {
+    login({ username: userData.username, password: 'temp' });
+    addNotification('success', `Account created successfully. Welcome, ${userData.username}.`);
   };
 
   if (!isAuthenticated) {
-    return <LoginForm onLogin={handleLogin} />;
+    if (publicView === "404") {
+      return <NotFoundPage onReturnBase={() => setPublicView("login")} />;
+    }
+
+    switch (publicView) {
+      case "forgot-password":
+        return <ForgotPassword onBackToLogin={() => setPublicView("login")} />;
+      case "contact-support":
+        return <ContactSupport onBackToLogin={() => setPublicView("login")} />;
+      case "signup":
+        return <SignupPage onBackToLogin={() => setPublicView("login")} onSignupComplete={handleSignup} />;
+      case "privacy":
+        return <LegalPage title="Privacy Policy" onBack={() => setPublicView("login")} />;
+      case "terms":
+        return <LegalPage title="Terms of Service" onBack={() => setPublicView("login")} />;
+      default:
+        return (
+          <LoginForm
+            onLogin={handleLogin}
+            onNavigate={(view: any) => setPublicView(view)}
+          />
+        );
+    }
   }
 
   const renderMainContent = () => {
@@ -47,40 +79,26 @@ function App() {
       case "settings":
         return <TerminalSettings />;
       default:
+        // Instead of returning dashboard, we could show 404 if it's an invalid section
         return <TerminalDashboard />;
     }
   };
 
   return (
-    <div className="h-screen bg-terminal-bg text-terminal-text font-mono overflow-hidden matrix-bg">
-      {/* Terminal Header */}
-      <TerminalHeader user={user} onLogout={handleLogout} onNavigate={setActiveSection} />
-
-      <div className="flex h-[calc(100vh-40px)]">
-        {/* Sidebar */}
-        <TerminalSidebar
-          activeSection={activeSection}
-          onSectionChange={setActiveSection}
-        />
-
-        {/* Main Content */}
-        <div className="flex-1 bg-terminal-bg overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSection}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.2 }}
-              className="h-full"
-            >
-              {renderMainContent()}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-    </div>
+    <>
+      <MainLayout
+        activeSection={activeSection}
+        onSectionChange={setActiveSection}
+        user={user}
+        onLogout={handleLogout}
+      >
+        {renderMainContent()}
+      </MainLayout>
+      <NotificationSystem notifications={notifications} onRemove={removeNotification} />
+    </>
   );
 }
 
 export default App;
+
+

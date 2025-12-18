@@ -1,60 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Activity, BarChart3, DollarSign } from 'lucide-react';
-import { PortfolioHistoryChart } from './PortfolioHistoryChart';
+import { PortfolioHistoryChart } from '../components/ui/PortfolioHistoryChart';
 
-const portfolioMetrics = [
-  { label: 'TOTAL VALUE', value: '847,293.45', change: '+12.4%', changeType: 'up' },
-  { label: 'P&L TODAY', value: '+23,847.32', change: '+2.89%', changeType: 'up' },
-  { label: 'BETA', value: '1.24', change: '+0.08', changeType: 'up' },
-  { label: 'SHARPE RATIO', value: '2.14', change: '+0.18', changeType: 'up' },
-];
-
-const topPositions = [
-  {
-    symbol: 'AAPL',
-    shares: '1,250',
-    avgCost: '175.23',
-    currentPrice: '189.84',
-    pnl: '+18,262.50',
-    pnlPct: '+8.34%',
-    weight: '15.2%'
-  },
-  {
-    symbol: 'MSFT',
-    shares: '800',
-    avgCost: '365.45',
-    currentPrice: '378.92',
-    pnl: '+10,776.00',
-    pnlPct: '+3.69%',
-    weight: '12.8%'
-  },
-  {
-    symbol: 'GOOGL',
-    shares: '450',
-    avgCost: '148.90',
-    currentPrice: '142.67',
-    pnl: '-2,803.50',
-    pnlPct: '-4.18%',
-    weight: '8.9%'
-  },
-  {
-    symbol: 'TSLA',
-    shares: '300',
-    avgCost: '225.67',
-    currentPrice: '234.56',
-    pnl: '+2,667.00',
-    pnlPct: '+3.94%',
-    weight: '7.3%'
-  },
-];
-
-const marketData = [
-  { symbol: 'SPX', value: '4,567.89', change: '+23.45', pct: '+0.52%', volume: '3.2B' },
-  { symbol: 'NDX', value: '14,234.56', change: '+89.12', pct: '+0.63%', volume: '2.8B' },
-  { symbol: 'DJI', value: '34,567.89', change: '-45.67', pct: '-0.13%', volume: '1.9B' },
-  { symbol: 'VIX', value: '18.45', change: '-1.23', pct: '-6.25%', volume: '245M' },
-];
+import {
+  terminalDashboardMetrics as portfolioMetrics,
+  terminalTopPositions as topPositions,
+  terminalMarketOverview as marketData
+} from '../services/mockData';
 
 
 
@@ -99,7 +52,7 @@ export const TerminalDashboard: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            {topPositions.map((position, index) => (
+            {topPositions.map((position) => (
               <div key={position.symbol} className="border-b border-terminal-border pb-2 last:border-b-0">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-terminal-text font-mono font-bold">{position.symbol}</span>
@@ -143,7 +96,7 @@ export const TerminalDashboard: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            {marketData.map((market, index) => (
+            {marketData.map((market) => (
               <div key={market.symbol} className="flex items-center justify-between">
                 <span className="text-terminal-text font-mono font-bold text-sm">{market.symbol}</span>
                 <div className="text-right">

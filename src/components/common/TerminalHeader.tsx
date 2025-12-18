@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { Activity, Wifi, Shield, Clock, User, Settings, LogOut } from 'lucide-react';
 import { UserProfile } from './UserProfile';
 
@@ -9,9 +9,9 @@ interface TerminalHeaderProps {
   onNavigate?: (section: string) => void;
 }
 
-export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout, onNavigate }) => {
+export const TerminalHeader = ({ user, onLogout, onNavigate }: TerminalHeaderProps) => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [marketStatus, setMarketStatus] = useState('OPEN');
+  const [marketStatus] = useState('OPEN');
   const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
@@ -102,7 +102,9 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ user, onLogout, 
         </button>
       </div>
 
-      {showProfile && <UserProfile onClose={() => setShowProfile(false)} />}
+      <AnimatePresence>
+        {showProfile && <UserProfile onClose={() => setShowProfile(false)} />}
+      </AnimatePresence>
     </div>
   );
 };

@@ -1,18 +1,12 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  User, 
-  Settings, 
-  Shield, 
-  Activity, 
-  TrendingUp, 
+import {
+  User,
+  Settings,
+  Shield,
+  Activity,
+  TrendingUp,
   Award,
-  Clock,
-  DollarSign,
-  BarChart3,
-  Target,
-  Zap,
-  Bell
+  BarChart3
 } from 'lucide-react';
 
 const tradingStats = [
@@ -50,7 +44,7 @@ interface UserProfileProps {
   onClose: () => void;
 }
 
-export const UserProfile: React.FC<UserProfileProps> = ({ onClose }) => {
+export const UserProfile = ({ onClose }: UserProfileProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -140,9 +134,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ onClose }) => {
                       <tr key={index} className="border-b border-terminal-border hover:bg-terminal-surface">
                         <td className="p-3 text-terminal-text font-mono text-xs">{activity.time}</td>
                         <td className="p-3 text-center">
-                          <span className={`px-2 py-1 text-xs font-bold ${
-                            activity.action === 'BUY' ? 'bg-terminal-success text-terminal-bg' : 'bg-terminal-danger text-terminal-bg'
-                          }`}>
+                          <span className={`px-2 py-1 text-xs font-bold ${activity.action === 'BUY' ? 'bg-terminal-success text-terminal-bg' : 'bg-terminal-danger text-terminal-bg'
+                            }`}>
                             {activity.action}
                           </span>
                         </td>
@@ -150,11 +143,10 @@ export const UserProfile: React.FC<UserProfileProps> = ({ onClose }) => {
                         <td className="p-3 text-right text-terminal-text font-mono text-sm">{activity.quantity}</td>
                         <td className="p-3 text-right text-terminal-text font-mono text-sm">${activity.price}</td>
                         <td className="p-3 text-center">
-                          <span className={`text-xs px-2 py-1 rounded ${
-                            activity.status === 'FILLED' ? 'bg-terminal-success bg-opacity-20 text-terminal-success' :
-                            activity.status === 'PARTIAL' ? 'bg-terminal-warning bg-opacity-20 text-terminal-warning' :
-                            'bg-terminal-danger bg-opacity-20 text-terminal-danger'
-                          }`}>
+                          <span className={`text-xs px-2 py-1 rounded ${activity.status === 'FILLED' ? 'bg-terminal-success bg-opacity-20 text-terminal-success' :
+                              activity.status === 'PARTIAL' ? 'bg-terminal-warning bg-opacity-20 text-terminal-warning' :
+                                'bg-terminal-danger bg-opacity-20 text-terminal-danger'
+                            }`}>
                             {activity.status}
                           </span>
                         </td>

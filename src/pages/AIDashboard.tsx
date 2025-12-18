@@ -1,46 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Brain, TrendingUp, Shield, Zap, Target, AlertTriangle } from 'lucide-react';
+import { Brain, Shield, Zap, Target } from 'lucide-react';
 
-const aiInsights = [
-  {
-    type: 'opportunity',
-    title: 'High-Yield Bond Opportunity',
-    description: 'AI detected 12.3% yield potential in emerging market bonds',
-    confidence: 87,
-    risk: 'Medium',
-    action: 'Consider allocation',
-    icon: Target,
-    color: 'text-lime-accent'
-  },
-  {
-    type: 'warning',
-    title: 'Tech Sector Overexposure',
-    description: 'Portfolio shows 45% tech allocation - recommend diversification',
-    confidence: 94,
-    risk: 'High',
-    action: 'Rebalance needed',
-    icon: AlertTriangle,
-    color: 'text-orange-400'
-  },
-  {
-    type: 'optimization',
-    title: 'Crypto Momentum Signal',
-    description: 'Bitcoin showing strong momentum indicators for next 30 days',
-    confidence: 76,
-    risk: 'High',
-    action: 'Monitor closely',
-    icon: TrendingUp,
-    color: 'text-blue-400'
-  }
-];
-
-const portfolioMetrics = [
-  { label: 'Total Portfolio Value', value: '$847,293', change: '+12.4%', period: '30 days' },
-  { label: 'AI Confidence Score', value: '89/100', change: '+5 points', period: 'this week' },
-  { label: 'Risk-Adjusted Return', value: '18.7%', change: '+2.3%', period: 'YTD' },
-  { label: 'Sharpe Ratio', value: '2.14', change: '+0.18', period: 'current' }
-];
+import {
+  aiInsights,
+  aiPortfolioMetrics as portfolioMetrics
+} from '../services/mockData';
 
 export const AIDashboard: React.FC = () => {
   return (
@@ -127,11 +92,10 @@ export const AIDashboard: React.FC = () => {
                     <span className="text-xs bg-lime-accent/20 text-lime-accent px-2 py-1 rounded-full">
                       {insight.confidence}% confidence
                     </span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      insight.risk === 'High' ? 'bg-red-500/20 text-red-400' :
+                    <span className={`text-xs px-2 py-1 rounded-full ${insight.risk === 'High' ? 'bg-red-500/20 text-red-400' :
                       insight.risk === 'Medium' ? 'bg-orange-500/20 text-orange-400' :
-                      'bg-green-500/20 text-green-400'
-                    }`}>
+                        'bg-green-500/20 text-green-400'
+                      }`}>
                       {insight.risk} Risk
                     </span>
                   </div>

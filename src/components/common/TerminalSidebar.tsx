@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Brain,
@@ -24,10 +23,10 @@ const navigation = [
   { id: 'settings', label: 'SETTINGS', icon: Settings, hotkey: 'F6' },
 ];
 
-export const TerminalSidebar: React.FC<TerminalSidebarProps> = ({
+export const TerminalSidebar = ({
   activeSection,
   onSectionChange
-}) => {
+}: TerminalSidebarProps) => {
   return (
     <div className="w-48 bg-terminal-surface border-r border-terminal-border flex flex-col">
       {/* Header */}
@@ -43,8 +42,8 @@ export const TerminalSidebar: React.FC<TerminalSidebarProps> = ({
             key={item.id}
             onClick={() => onSectionChange(item.id)}
             className={`w-full flex items-center justify-between p-3 mb-1 text-left transition-all duration-200 group ${activeSection === item.id
-                ? 'bg-terminal-accent text-terminal-bg border-l-2 border-terminal-accent'
-                : 'text-terminal-text-dim hover:text-terminal-text hover:bg-terminal-panel'
+              ? 'bg-terminal-accent text-terminal-bg border-l-2 border-terminal-accent'
+              : 'text-terminal-text-dim hover:text-terminal-text hover:bg-terminal-panel'
               }`}
             whileHover={{ x: 2 }}
             initial={{ opacity: 0, x: -20 }}

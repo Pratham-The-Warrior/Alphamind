@@ -2,28 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Search, Filter, Star, BarChart3 } from 'lucide-react';
 
-const marketData = [
-  { symbol: 'AAPL', name: 'Apple Inc.', price: 189.84, change: 2.34, pct: 1.25, volume: '45.2M', bid: 189.82, ask: 189.86, market: 'NASDAQ' },
-  { symbol: 'GOOGL', name: 'Alphabet Inc.', price: 142.67, change: -1.23, pct: -0.85, volume: '23.1M', bid: 142.65, ask: 142.69, market: 'NASDAQ' },
-  { symbol: 'TSLA', name: 'Tesla Inc.', price: 234.56, change: 5.67, pct: 2.48, volume: '67.8M', bid: 234.54, ask: 234.58, market: 'NASDAQ' },
-  { symbol: 'MSFT', name: 'Microsoft Corp.', price: 378.92, change: 3.45, pct: 0.92, volume: '28.9M', bid: 378.90, ask: 378.94, market: 'NASDAQ' },
-  { symbol: 'BTC-USD', name: 'Bitcoin', price: 67234.56, change: 1234.56, pct: 1.87, volume: '2.1B', bid: 67230.00, ask: 67240.00, market: 'CRYPTO' },
-  { symbol: 'ETH-USD', name: 'Ethereum', price: 3456.78, change: 89.12, pct: 2.64, volume: '1.8B', bid: 3456.00, ask: 3457.00, market: 'CRYPTO' },
-  { symbol: 'GLD', name: 'Gold ETF', price: 189.45, change: 0.89, pct: 0.47, volume: '12.3M', bid: 189.43, ask: 189.47, market: 'COMMODITY' },
-  { symbol: 'TLT', name: '20+ Year Treasury', price: 89.34, change: -0.45, pct: -0.50, volume: '8.7M', bid: 89.32, ask: 89.36, market: 'BOND' },
-  { symbol: 'SPY', name: 'SPDR S&P 500', price: 456.78, change: 2.34, pct: 0.52, volume: '89.2M', bid: 456.76, ask: 456.80, market: 'ETF' },
-  { symbol: 'QQQ', name: 'Invesco QQQ', price: 378.45, change: 3.21, pct: 0.86, volume: '45.6M', bid: 378.43, ask: 378.47, market: 'ETF' },
-];
-
-const categories = ['ALL', 'STOCKS', 'CRYPTO', 'BONDS', 'COMMODITIES', 'ETFS', 'FOREX'];
-
-const topMovers = [
-  { symbol: 'NVDA', change: '+8.45%', volume: '125M' },
-  { symbol: 'AMD', change: '+6.23%', volume: '89M' },
-  { symbol: 'TSLA', change: '+5.67%', volume: '67M' },
-  { symbol: 'META', change: '-4.32%', volume: '45M' },
-  { symbol: 'NFLX', change: '-3.89%', volume: '34M' },
-];
+import {
+  marketData,
+  marketCategories as categories,
+  topMovers
+} from '../services/mockData';
 
 export const TerminalMarkets: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('ALL');
@@ -32,7 +15,7 @@ export const TerminalMarkets: React.FC = () => {
   const filteredData = marketData.filter(item => {
     const matchesCategory = activeCategory === 'ALL' || item.market === activeCategory;
     const matchesSearch = item.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.name.toLowerCase().includes(searchTerm.toLowerCase());
+      item.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -44,7 +27,7 @@ export const TerminalMarkets: React.FC = () => {
           <h1 className="text-terminal-accent text-lg font-bold">MARKET DATA</h1>
           <p className="text-terminal-text-muted text-xs">Real-time Level II quotes and market depth</p>
         </div>
-        
+
         <div className="flex items-center space-x-4">
           {/* Top Movers */}
           <div className="bg-terminal-panel p-2 rounded border border-terminal-border">
@@ -53,16 +36,15 @@ export const TerminalMarkets: React.FC = () => {
               {topMovers.slice(0, 3).map((mover) => (
                 <div key={mover.symbol} className="text-center">
                   <div className="text-terminal-text text-xs font-bold">{mover.symbol}</div>
-                  <div className={`text-xs ${
-                    mover.change.startsWith('+') ? 'text-terminal-success' : 'text-terminal-danger'
-                  }`}>
+                  <div className={`text-xs ${mover.change.startsWith('+') ? 'text-terminal-success' : 'text-terminal-danger'
+                    }`}>
                     {mover.change}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <div className="relative">
               <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-terminal-text-muted" />
@@ -90,11 +72,10 @@ export const TerminalMarkets: React.FC = () => {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-3 py-1 text-xs font-bold transition-all ${
-              activeCategory === category
-                ? 'bg-terminal-accent text-terminal-bg'
-                : 'bg-terminal-surface text-terminal-text-dim hover:text-terminal-text border border-terminal-border'
-            }`}
+            className={`px-3 py-1 text-xs font-bold transition-all ${activeCategory === category
+              ? 'bg-terminal-accent text-terminal-bg'
+              : 'bg-terminal-surface text-terminal-text-dim hover:text-terminal-text border border-terminal-border'
+              }`}
           >
             {category}
           </button>
@@ -146,14 +127,12 @@ export const TerminalMarkets: React.FC = () => {
                   <td className="p-2 text-right text-terminal-orange font-mono">
                     {item.ask.toLocaleString()}
                   </td>
-                  <td className={`p-2 text-right font-mono ${
-                    item.change >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
-                  }`}>
+                  <td className={`p-2 text-right font-mono ${item.change >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
+                    }`}>
                     {item.change >= 0 ? '+' : ''}{item.change}
                   </td>
-                  <td className={`p-2 text-right font-mono ${
-                    item.pct >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
-                  }`}>
+                  <td className={`p-2 text-right font-mono ${item.pct >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
+                    }`}>
                     <div className="flex items-center justify-end space-x-1">
                       {item.pct >= 0 ? (
                         <TrendingUp className="w-3 h-3" />
@@ -165,13 +144,12 @@ export const TerminalMarkets: React.FC = () => {
                   </td>
                   <td className="p-2 text-right text-terminal-text-dim font-mono">{item.volume}</td>
                   <td className="p-2 text-center">
-                    <span className={`text-xs px-2 py-1 rounded ${
-                      item.market === 'NASDAQ' ? 'bg-terminal-blue bg-opacity-20 text-terminal-blue' :
+                    <span className={`text-xs px-2 py-1 rounded ${item.market === 'NASDAQ' ? 'bg-terminal-blue bg-opacity-20 text-terminal-blue' :
                       item.market === 'CRYPTO' ? 'bg-terminal-orange bg-opacity-20 text-terminal-orange' :
-                      item.market === 'COMMODITY' ? 'bg-terminal-yellow bg-opacity-20 text-terminal-yellow' :
-                      item.market === 'ETF' ? 'bg-terminal-purple bg-opacity-20 text-terminal-purple' :
-                      'bg-terminal-green bg-opacity-20 text-terminal-green'
-                    }`}>
+                        item.market === 'COMMODITY' ? 'bg-terminal-yellow bg-opacity-20 text-terminal-yellow' :
+                          item.market === 'ETF' ? 'bg-terminal-purple bg-opacity-20 text-terminal-purple' :
+                            'bg-terminal-green bg-opacity-20 text-terminal-green'
+                      }`}>
                       {item.market}
                     </span>
                   </td>

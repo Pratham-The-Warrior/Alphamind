@@ -1,35 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
-
 @layer base {
   * {
-    @apply border-terminal-border;
+    border-color: #2A3441;
   }
-  
+
   body {
     @apply bg-terminal-bg text-terminal-text font-mono text-sm;
     font-feature-settings: "liga" 0, "calt" 0;
   }
-  
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
-    @apply bg-terminal-surface;
+    background: #0F1419;
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-terminal-border rounded;
+    background: #2A3441;
+    border-radius: 4px;
+    border: 2px solid #0F1419;
+    background-clip: padding-box;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-terminal-accent;
+    background: #FF6B35;
+  }
+
+  /* Firefox support */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2A3441 #0F1419;
   }
 }
 
@@ -37,46 +46,44 @@
   .terminal-panel {
     @apply bg-terminal-panel border border-terminal-border shadow-panel;
   }
-  
+
   .terminal-button {
     @apply bg-terminal-surface border border-terminal-border text-terminal-text hover:border-terminal-accent transition-all duration-200 font-mono text-xs;
   }
-  
+
   .terminal-input {
     @apply bg-terminal-surface border border-terminal-border text-terminal-text placeholder-terminal-text-muted focus:border-terminal-accent focus:outline-none font-mono text-xs;
   }
-  
+
   .data-grid {
     @apply font-mono text-xs;
   }
-  
+
   .price-up {
     @apply text-terminal-success;
   }
-  
+
   .price-down {
     @apply text-terminal-danger;
   }
-  
+
   .price-neutral {
     @apply text-terminal-text-dim;
   }
-  
+
   .terminal-glow {
     @apply shadow-terminal-glow;
   }
-  
+
   .blink {
     @apply animate-blink;
   }
 }
 
-/* Terminal-style selection */
 ::selection {
   @apply bg-terminal-accent bg-opacity-30;
 }
 
-/* Matrix-style background effect */
 .matrix-bg::before {
   content: '';
   position: absolute;
@@ -84,7 +91,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
+  background-image:
     radial-gradient(circle at 25% 25%, rgba(255, 107, 53, 0.02) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, rgba(0, 212, 170, 0.02) 0%, transparent 50%);
   pointer-events: none;
