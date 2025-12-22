@@ -61,7 +61,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                         <div className="space-y-8 relative">
                             {[
                                 { n: 1, label: 'IDENTITY', sub: 'Trader Credentials' },
-                                { n: 2, label: 'SECURITY', sub: 'Level III Encryption' },
+                                { n: 2, label: 'SECURITY', sub: 'Secure Setup' },
                                 { n: 3, label: 'ACCESS', sub: 'Terminal Login' }
                             ].map((s, i) => (
                                 <div key={i} className="flex flex-col relative z-10">
@@ -161,7 +161,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                                         />
                                     </div>
                                     <label htmlFor="terms" className="text-[10px] text-terminal-text-muted leading-tight">
-                                        I acknowledge and accept the Alpha Mind <span className="text-terminal-accent hover:underline cursor-pointer">Protocol Terms of Service</span> and <span className="text-terminal-accent hover:underline cursor-pointer">Data Privacy Encryption Policy</span>.
+                                        I acknowledge and accept the Alpha Mind <span className="text-terminal-accent hover:underline cursor-pointer">Protocol Terms of Service</span> and <span className="text-terminal-accent hover:underline cursor-pointer">Data Privacy Policy</span>.
                                     </label>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                                     className="w-full py-2 text-[10px] text-terminal-text-muted hover:text-terminal-text flex items-center justify-center space-x-2 transition-colors uppercase font-bold tracking-widest"
                                 >
                                     <ArrowLeft className="w-3 h-3" />
-                                    <span>Existing Operator Login</span>
+                                    <span>Existing User Login</span>
                                 </button>
                             </div>
                         </form>
@@ -204,10 +204,10 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                 <div className="mt-8 bg-terminal-panel border border-terminal-border rounded p-4 text-center">
                     <div className="flex items-center justify-center space-x-2 mb-2">
                         <Shield className="w-4 h-4 text-terminal-success" />
-                        <span className="text-terminal-success text-[10px] font-bold uppercase tracking-widest">Biometric-Ready Encryption</span>
+                        <span className="text-terminal-success text-[10px] font-bold uppercase tracking-widest">Enterprise Grade Security</span>
                     </div>
                     <p className="text-[10px] text-terminal-text-muted leading-relaxed">
-                        All account data is stored in air-gapped cold storage. Account initialization requires Level II clearance. Authentication uses polymorphic encryption keys.
+                        All account data is encrypted using industry-standard protocols. Your privacy and security are our top priority.
                     </p>
                 </div>
             </div>

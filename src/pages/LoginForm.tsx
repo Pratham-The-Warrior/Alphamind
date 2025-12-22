@@ -9,7 +9,7 @@ import {
   Shield,
   Zap,
   Activity,
-  Terminal,
+  Brain,
   Cpu,
   Globe,
   Database
@@ -27,31 +27,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginType, setLoginType] = useState<"trader" | "demo">("trader");
-  const [logs, setLogs] = useState<string[]>([]);
 
-  useEffect(() => {
-    const initialLogs = [
-      "SYSTEM_BOOT: Initializing core protocols...",
-      "AUTH_SERVER: Connection established (AES-256)",
-      "NETWORK: Uplink active via ALPHA-9 satellite",
-      "SECURITY: Biometric sensors online",
-      "MARKETS: Real-time data feed synchronized"
-    ];
-    setLogs(initialLogs);
 
-    const interval = setInterval(() => {
-      const systemLogs = [
-        `SCANNING: Node ${Math.floor(Math.random() * 999)} verified`,
-        `TRAFFIC: Incoming packet 0x${Math.random().toString(16).slice(2, 6).toUpperCase()}`,
-        "STATUS: Signal strength optimal",
-        "SYNC: Database delta update complete",
-        `TEMP: System core at ${35 + Math.floor(Math.random() * 10)}°C`
-      ];
-      setLogs(prev => [...prev.slice(-8), systemLogs[Math.floor(Math.random() * systemLogs.length)]]);
-    }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +66,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             className="flex items-center space-x-3 mb-8"
           >
             <div className="p-2 bg-terminal-panel border border-terminal-accent/30 rounded shadow-terminal-glow">
-              <Terminal className="w-8 h-8 text-terminal-accent" />
+              <Brain className="w-8 h-8 text-terminal-accent" />
             </div>
             <div>
               <h1 className="text-4xl font-bold text-terminal-accent tracking-tighter">ALPHA MIND</h1>
@@ -126,8 +104,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                 {[
                   { icon: Cpu, label: 'COMPUTE', val: 'MAX' },
                   { icon: Globe, label: 'NETWORK', val: '99.9%' },
-                  { icon: Database, label: 'STORAGE', val: 'AIR-GAP' },
-                  { icon: Shield, label: 'PROTECT', val: 'AES-256' },
+                  { icon: Database, label: 'STORAGE', val: 'SECURE' },
+                  { icon: Shield, label: 'PROTECT', val: 'SSL/TLS' },
                 ].map((item, idx) => (
                   <motion.div
                     key={item.label}
@@ -145,16 +123,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             </div>
           </div>
 
-          {/* Scrolling Terminal Log */}
-          <div className="bg-black/40 border border-terminal-border p-4 rounded-lg font-mono text-[10px] text-terminal-success/70 space-y-1 h-48 overflow-hidden backdrop-blur-sm">
-            {logs.map((log, i) => (
-              <div key={i} className="flex items-start">
-                <span className="text-terminal-success/30 mr-2">[{new Date().toLocaleTimeString([], { hour12: false })}]</span>
-                <span className={i === logs.length - 1 ? "text-terminal-success animate-pulse" : ""}>{log}</span>
-              </div>
-            ))}
-            <div className="w-2 h-4 bg-terminal-success animate-blink inline-block ml-1"></div>
-          </div>
+
         </div>
 
         {/* Decorative scanlines */}
@@ -182,7 +151,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             className="mb-8"
           >
             <h3 className="text-terminal-text font-bold text-xl mb-1">TERMINAL ACCESS</h3>
-            <p className="text-terminal-text-muted text-xs">Awaiting authorization for secure channel...</p>
+            <p className="text-terminal-text-muted text-xs">Please sign in to access your portfolio</p>
           </motion.div>
 
           {/* Login Type Toggle */}
@@ -243,7 +212,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
 
                   <div>
                     <label className="block text-terminal-text-muted text-[10px] font-bold mb-2 uppercase tracking-widest">
-                      ENCRYPTION KEY
+                      PASSWORD
                     </label>
                     <div className="relative group">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-terminal-text-muted group-focus-within:text-terminal-accent transition-colors" />
@@ -275,7 +244,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                     {isLoading ? (
                       <>
                         <div className="w-4 h-4 border-2 border-terminal-bg border-t-transparent rounded-full animate-spin"></div>
-                        <span className="tracking-widest">AUTHORIZING...</span>
+                        <span className="tracking-widest">AUTHENTICATING...</span>
                       </>
                     ) : (
                       <>
@@ -352,7 +321,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             className="mt-8 flex items-center justify-center space-x-3 text-terminal-text-dim"
           >
             <Shield className="w-4 h-4 text-terminal-success" />
-            <span className="text-[10px] font-mono tracking-tighter uppercase whitespace-nowrap">Protected by AES-256 Quantum Encryption Protocol 7.4</span>
+            <span className="text-[10px] font-mono tracking-tighter uppercase whitespace-nowrap">Protected by Industry Standard Encryption</span>
             <div className="h-px flex-1 bg-terminal-border/30"></div>
           </motion.div>
 
