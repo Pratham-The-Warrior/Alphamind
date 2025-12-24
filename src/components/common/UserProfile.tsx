@@ -15,15 +15,15 @@ const tradingStats = [
   { label: 'PROFIT FACTOR', value: '2.14', change: 'Excellent rating' },
   { label: 'MAX DRAWDOWN', value: '-8.4%', change: 'Within risk limits' },
   { label: 'SHARPE RATIO', value: '1.87', change: 'Above benchmark' },
-  { label: 'TOTAL P&L', value: '+$847,293', change: '+18.7% YTD' }
+  { label: 'TOTAL P&L', value: '+₹70,47,293', change: '+18.7% YTD' }
 ];
 
 const recentActivity = [
-  { time: '14:23:45', action: 'BUY', symbol: 'AAPL', quantity: '500', price: '189.84', status: 'FILLED' },
-  { time: '13:45:12', action: 'SELL', symbol: 'TSLA', quantity: '200', price: '234.56', status: 'FILLED' },
-  { time: '12:34:28', action: 'BUY', symbol: 'MSFT', quantity: '300', price: '378.92', status: 'FILLED' },
-  { time: '11:56:33', action: 'SELL', symbol: 'GOOGL', quantity: '150', price: '142.67', status: 'PARTIAL' },
-  { time: '10:23:17', action: 'BUY', symbol: 'BTC-USD', quantity: '0.5', price: '67234.56', status: 'FILLED' }
+  { time: '14:23:45', action: 'BUY', symbol: 'RELIANCE', quantity: '100', price: '2,678.35', status: 'FILLED' },
+  { time: '13:45:12', action: 'SELL', symbol: 'TCS', quantity: '50', price: '4,012.75', status: 'FILLED' },
+  { time: '12:34:28', action: 'BUY', symbol: 'HDFCBANK', quantity: '150', price: '1,678.90', status: 'FILLED' },
+  { time: '11:56:33', action: 'SELL', symbol: 'INFY', quantity: '200', price: '1,612.45', status: 'PARTIAL' },
+  { time: '10:23:17', action: 'BUY', symbol: 'BHARTIARTL', quantity: '75', price: '1,567.80', status: 'FILLED' }
 ];
 
 const achievements = [
@@ -141,11 +141,11 @@ export const UserProfile = ({ onClose }: UserProfileProps) => {
                         </td>
                         <td className="p-3 text-terminal-text font-bold text-sm">{activity.symbol}</td>
                         <td className="p-3 text-right text-terminal-text font-mono text-sm">{activity.quantity}</td>
-                        <td className="p-3 text-right text-terminal-text font-mono text-sm">${activity.price}</td>
+                        <td className="p-3 text-right text-terminal-text font-mono text-sm">₹{activity.price}</td>
                         <td className="p-3 text-center">
                           <span className={`text-xs px-2 py-1 rounded ${activity.status === 'FILLED' ? 'bg-terminal-success bg-opacity-20 text-terminal-success' :
-                              activity.status === 'PARTIAL' ? 'bg-terminal-warning bg-opacity-20 text-terminal-warning' :
-                                'bg-terminal-danger bg-opacity-20 text-terminal-danger'
+                            activity.status === 'PARTIAL' ? 'bg-terminal-warning bg-opacity-20 text-terminal-warning' :
+                              'bg-terminal-danger bg-opacity-20 text-terminal-danger'
                             }`}>
                             {activity.status}
                           </span>

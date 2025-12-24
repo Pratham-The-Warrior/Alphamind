@@ -112,10 +112,10 @@ export const TerminalOptimizer: React.FC = () => {
                     </div>
                   </td>
                   <td className="p-2 text-right text-terminal-text font-mono text-sm">
-                    ${pred.currentPrice.toLocaleString()}
+                    ₹{pred.currentPrice.toLocaleString('en-IN')}
                   </td>
                   <td className="p-2 text-right text-terminal-text font-mono text-sm">
-                    ${pred.predictedPrice.toLocaleString()}
+                    ₹{pred.predictedPrice.toLocaleString('en-IN')}
                   </td>
                   <td className="p-2 text-center">
                     <span className={`px-2 py-1 text-xs font-bold rounded ${pred.direction === 'STRONG_BUY' ? 'bg-terminal-success text-terminal-bg' :

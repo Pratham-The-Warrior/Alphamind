@@ -30,7 +30,7 @@ export const TerminalAnalytics: React.FC = () => {
               <tr className="border-b border-terminal-border">
                 <th className="text-left p-3 text-terminal-text-muted text-xs">PERIOD</th>
                 <th className="text-right p-3 text-terminal-text-muted text-xs">PORTFOLIO</th>
-                <th className="text-right p-3 text-terminal-text-muted text-xs">BENCHMARK (SPY)</th>
+                <th className="text-right p-3 text-terminal-text-muted text-xs">BENCHMARK (NIFTY 50)</th>
                 <th className="text-right p-3 text-terminal-text-muted text-xs">ALPHA</th>
                 <th className="text-right p-3 text-terminal-text-muted text-xs">OUTPERFORMANCE</th>
               </tr>

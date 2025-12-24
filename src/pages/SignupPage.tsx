@@ -47,7 +47,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                         ALPHA MIND
                     </h1>
                     <p className="text-terminal-text-dim text-sm uppercase tracking-widest">
-                        New Account Registration Protocol
+                        Create Your Investment Account
                     </p>
                 </motion.div>
 
@@ -60,9 +60,9 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                     <div className="bg-terminal-panel border-r border-terminal-border p-6 md:w-48 hidden md:block">
                         <div className="space-y-8 relative">
                             {[
-                                { n: 1, label: 'IDENTITY', sub: 'Trader Credentials' },
+                                { n: 1, label: 'IDENTITY', sub: 'Personal Info' },
                                 { n: 2, label: 'SECURITY', sub: 'Secure Setup' },
-                                { n: 3, label: 'ACCESS', sub: 'Terminal Login' }
+                                { n: 3, label: 'ACCESS', sub: 'Account Login' }
                             ].map((s, i) => (
                                 <div key={i} className="flex flex-col relative z-10">
                                     <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center mb-2 font-bold text-xs ${step > s.n ? 'bg-terminal-success border-terminal-success text-terminal-bg' :
@@ -177,12 +177,12 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                                     {isLoading ? (
                                         <>
                                             <div className="w-4 h-4 border-2 border-terminal-bg border-t-transparent rounded-full animate-spin" />
-                                            <span>INITIALIZING ACCOUNT...</span>
+                                            <span> creating account...</span>
                                         </>
                                     ) : (
                                         <>
                                             <Zap className="w-4 h-4" />
-                                            <span>INITIALIZE TRADER PROFILE</span>
+                                            <span>CREATE ACCOUNT</span>
                                         </>
                                     )}
                                 </motion.button>
@@ -193,7 +193,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onBackToLogin, onSignupC
                                     className="w-full py-2 text-[10px] text-terminal-text-muted hover:text-terminal-text flex items-center justify-center space-x-2 transition-colors uppercase font-bold tracking-widest"
                                 >
                                     <ArrowLeft className="w-3 h-3" />
-                                    <span>Existing User Login</span>
+                                    <span>Back to Login</span>
                                 </button>
                             </div>
                         </form>

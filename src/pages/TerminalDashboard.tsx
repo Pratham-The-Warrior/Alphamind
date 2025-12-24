@@ -65,11 +65,11 @@ export const TerminalDashboard: React.FC = () => {
                   </div>
                   <div>
                     <span className="text-terminal-text-muted">AVG: </span>
-                    <span className="text-terminal-text">${position.avgCost}</span>
+                    <span className="text-terminal-text">₹{position.avgCost}</span>
                   </div>
                   <div>
                     <span className="text-terminal-text-muted">CURRENT: </span>
-                    <span className="text-terminal-text">${position.currentPrice}</span>
+                    <span className="text-terminal-text">₹{position.currentPrice}</span>
                   </div>
                   <div>
                     <span className="text-terminal-text-muted">P&L: </span>
@@ -155,14 +155,14 @@ export const TerminalDashboard: React.FC = () => {
         <div className="grid grid-cols-4 gap-6">
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">VALUE AT RISK (95%)</div>
-            <div className="text-terminal-danger text-lg font-bold font-mono">-$42,350</div>
+            <div className="text-terminal-danger text-lg font-bold font-mono">-₹3,52,350</div>
             <div className="text-terminal-text-muted text-xs">1-Day VaR</div>
           </div>
 
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">PORTFOLIO BETA</div>
             <div className="text-terminal-text text-lg font-bold font-mono">1.24</div>
-            <div className="text-terminal-success text-xs">vs S&P 500</div>
+            <div className="text-terminal-success text-xs">vs NIFTY 50</div>
           </div>
 
           <div className="bg-terminal-surface p-3 rounded">

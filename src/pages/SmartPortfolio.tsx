@@ -55,7 +55,7 @@ export const SmartPortfolio: React.FC = () => {
             className="text-center"
           >
             <p className="text-5xl font-bold text-lime-accent font-editorial mb-2">
-              ${totalValue.toLocaleString()}
+              ₹{totalValue.toLocaleString('en-IN')}
             </p>
             <div className="flex items-center justify-center space-x-2">
               <TrendingUp className="w-5 h-5 text-lime-accent" />
@@ -118,7 +118,7 @@ export const SmartPortfolio: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-light-text-secondary dark:text-dark-text-secondary">Value</span>
-                <span className="text-light-text dark:text-dark-text font-bold">${asset.value.toLocaleString()}</span>
+                <span className="text-light-text dark:text-dark-text font-bold">₹{asset.value.toLocaleString('en-IN')}</span>
               </div>
 
               <div className="flex items-center justify-between">

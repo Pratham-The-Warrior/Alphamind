@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
@@ -10,11 +10,19 @@ import {
   Zap,
   Activity,
   Brain,
-  Cpu,
   Globe,
-  Database
+  TrendingDown,
+  TrendingUp,
+  BarChart2
 } from "lucide-react";
 import { terminalMarketOverview as marketData } from "../services/mockData";
+
+const commoditiesData = [
+  { symbol: "GOLD", value: "₹62,450", pct: "+0.45%" },
+  { symbol: "SILVER", value: "₹74,820", pct: "-0.12%" },
+  { symbol: "CRUDE", value: "₹6,345", pct: "+1.20%" },
+  { symbol: "BTC", value: "₹56,42,150", pct: "+2.15%" },
+];
 
 interface LoginFormProps {
   onLogin: (credentials: { username: string; password: string }) => void;
@@ -27,9 +35,6 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginType, setLoginType] = useState<"trader" | "demo">("trader");
-
-
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,11 +71,11 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             className="flex items-center space-x-3 mb-8"
           >
             <div className="p-2 bg-terminal-panel border border-terminal-accent/30 rounded shadow-terminal-glow">
-              <Brain className="w-8 h-8 text-terminal-accent" />
+              <TrendingUp className="w-8 h-8 text-terminal-accent" />
             </div>
             <div>
               <h1 className="text-4xl font-bold text-terminal-accent tracking-tighter">ALPHA MIND</h1>
-              <p className="text-terminal-text-dim text-xs font-mono uppercase tracking-[0.3em]">Institutional Grade Terminal</p>
+              <p className="text-terminal-text-dim text-xs font-mono uppercase tracking-[0.3em]">Personal Portfolio Intelligence</p>
             </div>
           </motion.div>
 
@@ -99,31 +104,63 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             </div>
 
             <div className="space-y-6">
-              <h3 className="text-terminal-text font-bold text-sm tracking-widest border-l-2 border-terminal-blue pl-3">SYSTEM ARCHITECTURE</h3>
+              <h3 className="text-terminal-text font-bold text-sm tracking-widest border-l-2 border-terminal-blue pl-3 uppercase">Platform Capabilities</h3>
+
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Cpu, label: 'COMPUTE', val: 'MAX' },
-                  { icon: Globe, label: 'NETWORK', val: '99.9%' },
-                  { icon: Database, label: 'STORAGE', val: 'SECURE' },
-                  { icon: Shield, label: 'PROTECT', val: 'SSL/TLS' },
+                  { icon: Brain, label: 'INTELLIGENCE', desc: 'AI-driven portfolio analysis' },
+                  { icon: Shield, label: 'RISK', desc: 'Real-time holdings alerts' },
+                  { icon: Zap, label: 'OPTIMIZE', desc: 'Instant rebalancing' },
+                  { icon: Globe, label: 'MARKETS', desc: 'Global coverage' },
                 ].map((item, idx) => (
                   <motion.div
                     key={item.label}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8 + idx * 0.1 }}
-                    className="p-4 bg-terminal-panel border border-terminal-border text-center group hover:bg-terminal-surface transition-colors"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + idx * 0.1 }}
+                    className="group p-4 bg-terminal-surface/50 border border-terminal-border rounded-lg hover:border-terminal-blue/50 hover:bg-terminal-surface/80 transition-all duration-300"
                   >
-                    <item.icon className="w-5 h-5 mx-auto mb-2 text-terminal-text-muted group-hover:text-terminal-blue transition-colors" />
-                    <div className="text-[10px] text-terminal-text-muted mb-1 font-bold">{item.label}</div>
-                    <div className="text-xs text-terminal-text font-mono text-terminal-blue">{item.val}</div>
+                    <div className="flex items-center space-x-3 mb-2">
+                      <div className="p-2 bg-terminal-bg border border-terminal-blue/30 rounded group-hover:border-terminal-blue transition-colors">
+                        <item.icon className="w-4 h-4 text-terminal-blue group-hover:text-terminal-accent transition-colors" />
+                      </div>
+                      <span className="text-[10px] text-terminal-text font-bold tracking-widest">{item.label}</span>
+                    </div>
+                    <p className="text-[9px] text-terminal-text-dim leading-relaxed">{item.desc}</p>
                   </motion.div>
                 ))}
+              </div>
+
+              <div className="text-[10px] text-terminal-text-dim/60 font-mono text-center leading-relaxed">
+                Advanced algorithms processing real-time market data.
               </div>
             </div>
           </div>
 
-
+          <div className="space-y-6">
+            <h3 className="text-terminal-text font-bold text-sm tracking-widest border-l-2 border-terminal-warning pl-3 mb-4">COMMODITIES LIVE</h3>
+            <div className="grid grid-cols-4 gap-4">
+              {commoditiesData.map((item, idx) => (
+                <motion.div
+                  key={item.symbol}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.0 + idx * 0.1 }}
+                  className="bg-terminal-panel border border-terminal-border p-3 rounded group hover:border-terminal-warning/50 transition-all"
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <BarChart2 className="w-3 h-3 text-terminal-warning" />
+                    {item.pct.startsWith('+') ?
+                      <TrendingUp className="w-3 h-3 text-terminal-success" /> :
+                      <TrendingDown className="w-3 h-3 text-terminal-danger" />
+                    }
+                  </div>
+                  <div className="text-xs font-bold text-terminal-text font-mono mb-1">{item.symbol}</div>
+                  <div className="text-[10px] text-terminal-text-dim">{item.value}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Decorative scanlines */}
@@ -141,7 +178,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
           {/* Header (Mobile) */}
           <div className="lg:hidden text-center mb-10">
             <h1 className="text-3xl font-bold text-terminal-accent mb-2">ALPHA MIND</h1>
-            <p className="text-terminal-text-dim text-xs uppercase tracking-widest">Global Trading Protocol</p>
+            <p className="text-terminal-text-dim text-xs uppercase tracking-widest">Smart Investment Platform</p>
           </div>
 
           <motion.div
@@ -150,8 +187,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             transition={{ delay: 0.5 }}
             className="mb-8"
           >
-            <h3 className="text-terminal-text font-bold text-xl mb-1">TERMINAL ACCESS</h3>
-            <p className="text-terminal-text-muted text-xs">Please sign in to access your portfolio</p>
+            <h3 className="text-terminal-text font-bold text-xl mb-1">PORTFOLIO LOGIN</h3>
+            <p className="text-terminal-text-muted text-xs">Sign in to manage your wealth</p>
           </motion.div>
 
           {/* Login Type Toggle */}
@@ -168,7 +205,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                 : "text-terminal-text-dim hover:text-terminal-text"
                 }`}
             >
-              PROFESSIONAL
+              INVESTOR
             </button>
             <button
               onClick={() => setLoginType("demo")}
@@ -195,7 +232,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                 <form key="trader" onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className="block text-terminal-text-muted text-[10px] font-bold mb-2 uppercase tracking-widest">
-                      TRADER IDENTITY
+                      USERNAME
                     </label>
                     <div className="relative group">
                       <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-terminal-text-muted group-focus-within:text-terminal-accent transition-colors" />
@@ -249,7 +286,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                     ) : (
                       <>
                         <Zap className="w-4 h-4 fill-current" />
-                        <span className="tracking-widest capitalize">Access Terminal</span>
+                        <span className="tracking-widest capitalize">Access Portfolio</span>
                       </>
                     )}
                   </motion.button>
@@ -267,7 +304,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                       onClick={() => onNavigate('signup')}
                       className="text-[9px] text-terminal-text font-bold hover:text-terminal-accent transition-colors uppercase border-b border-terminal-accent/30"
                     >
-                      Request New Terminal
+                      Create Account
                     </button>
                   </div>
                 </form>
@@ -276,14 +313,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
                   <div className="w-16 h-16 bg-terminal-warning/10 border border-terminal-warning/30 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Activity className="w-8 h-8 text-terminal-warning animate-pulse" />
                   </div>
-                  <h3 className="text-terminal-text font-bold mb-2 text-xl tracking-tight">VIRTUAL SIMULATION</h3>
+                  <h3 className="text-terminal-text font-bold mb-2 text-xl tracking-tight">PRACTICE PORTFOLIO</h3>
                   <p className="text-terminal-text-dim text-xs mb-8">
-                    Deploy to real-time sandbox with $100k liquidity
+                    Test strategies risk-free with ₹1 Crore virtual cash
                   </p>
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="p-3 bg-terminal-bg/50 border border-terminal-border rounded">
-                      <div className="text-terminal-warning text-lg font-bold font-mono">$100K</div>
+                      <div className="text-terminal-warning text-lg font-bold font-mono">₹1 Cr</div>
                       <div className="text-[9px] text-terminal-text-muted font-bold uppercase">Funding</div>
                     </div>
                     <div className="p-3 bg-terminal-bg/50 border border-terminal-border rounded">
@@ -314,16 +351,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
           </motion.div>
 
           {/* Footer Security Notice */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="mt-8 flex items-center justify-center space-x-3 text-terminal-text-dim"
-          >
-            <Shield className="w-4 h-4 text-terminal-success" />
-            <span className="text-[10px] font-mono tracking-tighter uppercase whitespace-nowrap">Protected by Industry Standard Encryption</span>
-            <div className="h-px flex-1 bg-terminal-border/30"></div>
-          </motion.div>
+
 
           <footer className="mt-12 text-center text-terminal-text-muted text-[10px]">
             <div className="flex justify-center space-x-4 mb-4">

@@ -32,7 +32,7 @@ export const TerminalSidebar = ({
       {/* Header */}
       <div className="p-4 border-b border-terminal-border">
         <div className="text-terminal-accent font-bold text-lg">ALPHA MIND</div>
-        <div className="text-terminal-text-muted text-xs">AI WEALTH TERMINAL</div>
+        <div className="text-terminal-text-muted text-xs">PORTFOLIO ANALYZER</div>
       </div>
 
       {/* Navigation */}
@@ -68,13 +68,12 @@ export const TerminalSidebar = ({
       <div className="p-4 border-t border-terminal-border">
         <div className="bg-terminal-panel p-3 rounded">
           <div className="flex items-center space-x-2 mb-2">
-            <div className="w-2 h-2 bg-terminal-success rounded-full"></div>
-            <span className="text-xs text-terminal-text">SYSTEM STATUS</span>
+            <div className="w-2 h-2 bg-terminal-success rounded-full animate-pulse"></div>
+            <span className="text-xs text-terminal-text">MARKET STATUS</span>
           </div>
           <div className="text-xs text-terminal-text-dim space-y-1">
-            <div>CPU: 23%</div>
-            <div>MEM: 1.2GB</div>
-            <div>NET: 847ms</div>
+            <div className="flex justify-between"><span>DATA FEED</span><span className="text-terminal-success">ONLINE</span></div>
+            <div className="flex justify-between"><span>LATENCY</span><span>23ms</span></div>
           </div>
         </div>
       </div>

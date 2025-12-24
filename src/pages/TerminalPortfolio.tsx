@@ -8,10 +8,10 @@ import {
 } from '../services/mockData';
 
 const performanceMetrics = [
-  { label: 'TOTAL VALUE', value: '$847,293.45', change: '+12.4%' },
-  { label: 'DAY P&L', value: '+$23,847.32', change: '+2.89%' },
-  { label: 'TOTAL P&L', value: '+$89,234.67', change: '+11.78%' },
-  { label: 'CASH BALANCE', value: '$18,900.00', change: '2.23%' },
+  { label: 'TOTAL VALUE', value: '₹70,47,293', change: '+12.4%' },
+  { label: 'DAY P&L', value: '+₹1,98,473', change: '+2.89%' },
+  { label: 'TOTAL P&L', value: '+₹7,42,347', change: '+11.78%' },
+  { label: 'CASH BALANCE', value: '₹1,57,200', change: '2.23%' },
 ];
 
 export const TerminalPortfolio: React.FC = () => {
@@ -74,17 +74,17 @@ export const TerminalPortfolio: React.FC = () => {
                       {holding.shares.toLocaleString()}
                     </td>
                     <td className="p-2 text-right text-terminal-text font-mono text-sm">
-                      ${holding.avgCost.toFixed(2)}
+                      ₹{holding.avgCost.toLocaleString()}
                     </td>
                     <td className="p-2 text-right text-terminal-text font-mono text-sm">
-                      ${holding.currentPrice.toFixed(2)}
+                      ₹{holding.currentPrice.toLocaleString()}
                     </td>
                     <td className="p-2 text-right text-terminal-text font-mono text-sm">
-                      ${holding.marketValue.toLocaleString()}
+                      ₹{holding.marketValue.toLocaleString()}
                     </td>
                     <td className={`p-2 text-right font-mono text-sm ${holding.pnl >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
                       }`}>
-                      {holding.pnl >= 0 ? '+' : ''}${holding.pnl.toLocaleString()}
+                      {holding.pnl >= 0 ? '+' : ''}₹{Math.abs(holding.pnl).toLocaleString()}
                     </td>
                     <td className={`p-2 text-right font-mono text-sm ${holding.pnlPct >= 0 ? 'text-terminal-success' : 'text-terminal-danger'
                       }`}>
@@ -126,9 +126,9 @@ export const TerminalPortfolio: React.FC = () => {
                   ></div>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-terminal-text-muted">${sector.value.toLocaleString()}</span>
+                  <span className="text-terminal-text-muted">₹{sector.value.toLocaleString()}</span>
                   <span className={sector.pnl >= 0 ? 'text-terminal-success' : 'text-terminal-danger'}>
-                    {sector.pnl >= 0 ? '+' : ''}${sector.pnl.toLocaleString()}
+                    {sector.pnl >= 0 ? '+' : ''}₹{Math.abs(sector.pnl).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -153,7 +153,7 @@ export const TerminalPortfolio: React.FC = () => {
           <div className="bg-terminal-surface p-3 rounded">
             <div className="text-terminal-text-muted text-xs mb-1">BETA</div>
             <div className="text-terminal-text text-lg font-bold font-mono">1.24</div>
-            <div className="text-terminal-success text-xs">vs S&P 500</div>
+            <div className="text-terminal-success text-xs">vs NIFTY 50</div>
           </div>
 
           <div className="bg-terminal-surface p-3 rounded">

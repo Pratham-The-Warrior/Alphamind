@@ -59,7 +59,7 @@ export const TerminalHeader = ({ user, onLogout, onNavigate }: TerminalHeaderPro
       <div className="flex-1 mx-8 overflow-hidden">
         <div className="animate-ticker whitespace-nowrap">
           <span className="text-terminal-text-dim">
-            SPX: 4,567.89 (+0.52%) | NASDAQ: 14,234.56 (+0.63%) | BTC: 67,234.56 (+1.87%) | GOLD: 1,987.45 (+0.34%) | EUR/USD: 1.0845 (-0.12%)
+            NIFTY 50: 24,567.85 (+0.96%) | SENSEX: 81,234.65 (+0.98%) | BANK NIFTY: 52,345.20 (-0.30%) | GOLD MCX: ₹62,450 (+0.46%) | USD/INR: 83.45 (+0.12%)
           </span>
         </div>
       </div>

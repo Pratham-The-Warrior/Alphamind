@@ -159,7 +159,7 @@ export const AllMarkets: React.FC = () => {
                   </td>
                   <td className="p-4 text-right">
                     <span className="font-bold text-light-text dark:text-dark-text font-editorial">
-                      ${asset.price.toLocaleString()}
+                      ₹{asset.price.toLocaleString('en-IN')}
                     </span>
                   </td>
                   <td className="p-4 text-right">
