@@ -6,7 +6,8 @@ import {
   BarChart3,
   Zap,
   Settings,
-  ChevronRight
+  ChevronRight,
+  BookOpen
 } from 'lucide-react';
 
 interface TerminalSidebarProps {
@@ -20,7 +21,8 @@ const navigation = [
   { id: 'markets', label: 'MARKETS', icon: TrendingUp, hotkey: 'F3' },
   { id: 'analytics', label: 'ANALYTICS', icon: BarChart3, hotkey: 'F4' },
   { id: 'optimizer', label: 'OPTIMIZER', icon: Zap, hotkey: 'F5' },
-  { id: 'settings', label: 'SETTINGS', icon: Settings, hotkey: 'F6' },
+  { id: 'reference', label: 'ALPHA REFERENCE', icon: BookOpen, hotkey: 'F6' },
+  { id: 'settings', label: 'SETTINGS', icon: Settings, hotkey: 'F7' },
 ];
 
 export const TerminalSidebar = ({

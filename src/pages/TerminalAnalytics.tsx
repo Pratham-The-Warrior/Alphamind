@@ -5,13 +5,49 @@ import { BarChart3, TrendingUp, Activity, Target } from 'lucide-react';
 import {
   performanceData,
   analyticsRiskMetrics as riskMetrics,
-  correlationMatrix,
   attributionData
 } from '../services/mockData';
+import { CorrelationMatrix } from '../components/analytics/CorrelationMatrix';
 
 export const TerminalAnalytics: React.FC = () => {
+  const [leftWidth, setLeftWidth] = React.useState(33);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+  const [isResizing, setIsResizing] = React.useState(false);
+
+  const startResizing = React.useCallback(() => {
+    setIsResizing(true);
+  }, []);
+
+  const stopResizing = React.useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  const resize = React.useCallback((e: MouseEvent) => {
+    if (isResizing && containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const newWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      if (newWidth > 20 && newWidth < 80) {
+        setLeftWidth(newWidth);
+      }
+    }
+  }, [isResizing]);
+
+  React.useEffect(() => {
+    if (isResizing) {
+      window.addEventListener('mousemove', resize);
+      window.addEventListener('mouseup', stopResizing);
+    } else {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    }
+    return () => {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    };
+  }, [isResizing, resize, stopResizing]);
+
   return (
-    <div className="p-4 space-y-4 h-full overflow-auto">
+    <div className="p-4 space-y-4 h-full overflow-auto" ref={containerRef}>
       {/* Performance Comparison */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -57,13 +93,14 @@ export const TerminalAnalytics: React.FC = () => {
         </div>
       </motion.div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className={`flex space-x-2 min-h-[500px] ${isResizing ? 'select-none' : ''}`}>
         {/* Risk Metrics */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="terminal-panel p-4"
+          style={{ width: `${leftWidth}%` }}
         >
           <div className="flex items-center space-x-2 mb-4">
             <Target className="w-4 h-4 text-terminal-warning" />
@@ -86,43 +123,19 @@ export const TerminalAnalytics: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* Correlation Matrix */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="terminal-panel p-4"
+        {/* Resizer Handle */}
+        <div
+          className={`w-1 hover:w-1.5 transition-all cursor-col-resize flex items-center justify-center group ${isResizing ? 'bg-terminal-accent' : 'bg-transparent hover:bg-terminal-accent/30'
+            }`}
+          onMouseDown={startResizing}
         >
-          <div className="flex items-center space-x-2 mb-4">
-            <Activity className="w-4 h-4 text-terminal-blue" />
-            <span className="text-terminal-blue text-sm font-bold">CORRELATION MATRIX</span>
-          </div>
+          <div className={`h-8 w-px bg-terminal-accent/50 group-hover:bg-terminal-accent ${isResizing ? 'opacity-100' : 'opacity-0'}`} />
+        </div>
 
-          <div className="space-y-2">
-            {correlationMatrix.map((corr) => (
-              <div key={corr.asset} className="flex items-center justify-between">
-                <span className="text-terminal-text text-sm font-bold">{corr.asset}</span>
-                <div className="flex items-center space-x-2">
-                  <div className="w-20 bg-terminal-surface h-2 rounded">
-                    <div
-                      className={`h-2 rounded ${corr.correlation > 0.5 ? 'bg-terminal-danger' :
-                        corr.correlation > 0 ? 'bg-terminal-warning' :
-                          'bg-terminal-success'
-                        }`}
-                      style={{ width: `${Math.abs(corr.correlation) * 100}%` }}
-                    ></div>
-                  </div>
-                  <span className={`font-mono text-sm ${corr.correlation > 0.5 ? 'text-terminal-danger' :
-                    corr.correlation > 0 ? 'text-terminal-warning' :
-                      'text-terminal-success'
-                    }`}>
-                    {corr.correlation.toFixed(2)}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+        {/* Correlation Matrix */}
+        <div className="flex-1 min-w-0 overflow-hidden">
+          <CorrelationMatrix />
+        </div>
       </div>
 
       {/* Attribution Analysis */}

@@ -13,6 +13,7 @@ import { TerminalPortfolio } from "./pages/TerminalPortfolio";
 import { TerminalAnalytics } from "./pages/TerminalAnalytics";
 import { TerminalOptimizer } from "./pages/TerminalOptimizer";
 import { TerminalSettings } from "./pages/TerminalSettings";
+import { AlphaReference } from "./pages/AlphaReference";
 import { useAuth } from "./hooks/useAuth";
 
 function App() {
@@ -78,6 +79,8 @@ function App() {
         return <TerminalOptimizer />;
       case "settings":
         return <TerminalSettings />;
+      case "reference":
+        return <AlphaReference />;
       default:
         // Instead of returning dashboard, we could show 404 if it's an invalid section
         return <TerminalDashboard />;
