@@ -4,14 +4,19 @@ import {
     BookOpen,
     Search,
     ExternalLink,
-    BarChart2,
-    Activity,
-    Globe,
-    TrendingUp,
-    Cpu,
     Target,
+    Activity,
+    Cpu,
     Info
 } from 'lucide-react';
+import { UnifiedSearchBar } from '../components/research/UnifiedSearchBar';
+import { ResearchFeed } from '../components/research/ResearchFeed';
+import { InstitutionalFlow } from '../components/research/InstitutionalFlow';
+import { MacroHeatmap } from '../components/research/MacroHeatmap';
+import { SupplyChainGraph } from '../components/research/SupplyChainGraph';
+import { InsiderTracker } from '../components/research/InsiderTracker';
+import { ExternalToolsDock } from '../components/research/ExternalToolsDock';
+import { EventsCalendar } from '../components/research/EventsCalendar';
 
 interface Concept {
     id: string;
@@ -78,43 +83,7 @@ const concepts: Concept[] = [
     }
 ];
 
-const externalTools = [
-    {
-        name: 'TradingView',
-        description: 'Advanced charting and technical analysis platform.',
-        url: 'https://www.tradingview.com/chart/',
-        icon: BarChart2,
-        color: 'text-blue-400'
-    },
-    {
-        name: 'Moneycontrol',
-        description: 'Real-time Indian market news, analysis, and data.',
-        url: 'https://www.moneycontrol.com',
-        icon: Globe,
-        color: 'text-orange-400'
-    },
-    {
-        name: 'Screener.in',
-        description: 'Powerful stock analysis and screening tool for Indian equities.',
-        url: 'https://www.screener.in',
-        icon: Search,
-        color: 'text-emerald-400'
-    },
-    {
-        name: 'NSE India',
-        description: 'Official National Stock Exchange of India website for raw market data.',
-        url: 'https://www.nseindia.com',
-        icon: Activity,
-        color: 'text-red-400'
-    },
-    {
-        name: 'Tickertape',
-        description: 'Content-driven investment analysis platform for Indian stocks.',
-        url: 'https://www.tickertape.in',
-        icon: TrendingUp,
-        color: 'text-yellow-400'
-    }
-];
+
 
 export const AlphaReference: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -143,8 +112,8 @@ export const AlphaReference: React.FC = () => {
                     <button
                         onClick={() => setActiveTab('glossary')}
                         className={`px-4 py-2 rounded-md transition-all text-xs font-bold ${activeTab === 'glossary'
-                                ? 'bg-terminal-accent text-terminal-bg'
-                                : 'text-terminal-text-muted hover:text-terminal-text'
+                            ? 'bg-terminal-accent text-terminal-bg'
+                            : 'text-terminal-text-muted hover:text-terminal-text'
                             }`}
                     >
                         GLOSSARY
@@ -152,8 +121,8 @@ export const AlphaReference: React.FC = () => {
                     <button
                         onClick={() => setActiveTab('research')}
                         className={`px-4 py-2 rounded-md transition-all text-xs font-bold ${activeTab === 'research'
-                                ? 'bg-terminal-accent text-terminal-bg'
-                                : 'text-terminal-text-muted hover:text-terminal-text'
+                            ? 'bg-terminal-accent text-terminal-bg'
+                            : 'text-terminal-text-muted hover:text-terminal-text'
                             }`}
                     >
                         RESEARCH HUB
@@ -251,61 +220,40 @@ export const AlphaReference: React.FC = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="space-y-8"
+                        className="space-y-6"
                     >
-                        {/* Research Hub Intro */}
-                        <div className="terminal-panel p-8 text-center bg-gradient-to-b from-terminal-surface to-terminal-bg">
-                            <TrendingUp className="w-12 h-12 text-terminal-accent mx-auto mb-4" />
-                            <h2 className="text-2xl font-bold text-terminal-text">Integrated Research Suite</h2>
-                            <p className="text-terminal-text-muted max-w-2xl mx-auto mt-2 leading-relaxed">
-                                Connect your Alpha Mind analysis with world-class research tools. We've curated the most powerful external resources to help you conduct deep-dive fundamental and technical research.
-                            </p>
+                        {/* Unified Search & Lookup */}
+                        <div className="mb-8">
+                            <UnifiedSearchBar />
                         </div>
 
-                        {/* External Tools Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {externalTools.map((tool, index) => (
-                                <motion.a
-                                    key={tool.name}
-                                    href={tool.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className="terminal-panel p-6 flex flex-col items-center text-center group hover:bg-[#121620] transition-all hover:-translate-y-1"
-                                >
-                                    <div className={`p-4 rounded-full bg-terminal-bg border border-terminal-border mb-4 group-hover:border-terminal-accent transition-colors`}>
-                                        <tool.icon className={`w-8 h-8 ${tool.color}`} />
-                                    </div>
-                                    <h3 className="text-xl font-bold text-terminal-text group-hover:text-terminal-accent transition-colors">
-                                        {tool.name}
-                                    </h3>
-                                    <p className="text-sm text-terminal-text-dim mt-2 mb-6">
-                                        {tool.description}
-                                    </p>
-                                    <div className="mt-auto flex items-center gap-2 text-xs font-bold text-terminal-accent px-4 py-2 border border-terminal-accent/30 rounded-full group-hover:bg-terminal-accent group-hover:text-terminal-bg transition-all">
-                                        LAUNCH TOOL <ExternalLink className="w-3 h-3" />
-                                    </div>
-                                </motion.a>
-                            ))}
+                        {/* External Tools Dock */}
+                        <div className="mb-8">
+                            <ExternalToolsDock />
                         </div>
 
-                        {/* Custom Research Module Concept */}
-                        <div className="terminal-panel p-6 border-dashed border-terminal-border flex flex-col md:flex-row items-center justify-between gap-6 opacity-80 bg-terminal-surface/30">
-                            <div className="flex items-center gap-4">
-                                <div className="p-3 rounded-full bg-terminal-surface border border-terminal-border">
-                                    <Search className="w-6 h-6 text-terminal-text-muted" />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-terminal-text">Need a custom research module?</h4>
-                                    <p className="text-xs text-terminal-text-muted">Suggest any other financial tool you'd like to see integrated here.</p>
-                                </div>
+                        {/* Main Dashboard Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[600px]">
+                            {/* Left Column: Feed (7 cols) */}
+                            <div className="lg:col-span-7 h-full">
+                                <ResearchFeed />
                             </div>
-                            <button className="px-6 py-2 bg-terminal-surface border border-terminal-border rounded-md text-xs font-bold text-terminal-text hover:border-terminal-accent transition-all">
-                                SUBMIT SUGGESTION
-                            </button>
+
+                            {/* Right Column: Calendar (5 cols) */}
+                            <div className="lg:col-span-5 h-full">
+                                <EventsCalendar />
+                            </div>
                         </div>
+
+                        {/* Advanced Intelligence Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 auto-rows-[450px]">
+                            <InstitutionalFlow />
+                            <MacroHeatmap />
+                            <SupplyChainGraph />
+                            <InsiderTracker />
+                        </div>
+
+
                     </motion.div>
                 )}
             </AnimatePresence>

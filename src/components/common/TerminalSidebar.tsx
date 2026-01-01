@@ -34,7 +34,7 @@ export const TerminalSidebar = ({
       {/* Header */}
       <div className="p-4 border-b border-terminal-border">
         <div className="text-terminal-accent font-bold text-lg">ALPHA MIND</div>
-        <div className="text-terminal-text-muted text-xs">PORTFOLIO ANALYZER</div>
+        <div className="text-terminal-text-muted text-xs">PORTFOLIO TERMINAL</div>
       </div>
 
       {/* Navigation */}

@@ -70,8 +70,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLogin, onNavigate }) => 
             transition={{ delay: 0.3 }}
             className="flex items-center space-x-3 mb-8"
           >
-            <div className="p-2 bg-terminal-panel border border-terminal-accent/30 rounded shadow-terminal-glow">
-              <TrendingUp className="w-8 h-8 text-terminal-accent" />
+            <div className="bg-terminal-panel rounded shadow-terminal-glow overflow-hidden w-16 h-16 flex items-center justify-center">
+              <img src="/unicorn.png" alt="Alpha Mind Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-4xl font-bold text-terminal-accent tracking-tighter">ALPHA MIND</h1>
