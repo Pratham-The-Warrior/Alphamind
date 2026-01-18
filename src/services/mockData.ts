@@ -450,3 +450,51 @@ export const smartPortfolioRecommendations = [
 ];
 
 
+
+// Portfolio History Data (Multi-range)
+export const portfolioHistoryRanges = {
+    '1M': [
+        { date: 'Sep 01', portfolio: 82000, sp500: 51200 },
+        { date: 'Sep 05', portfolio: 83500, sp500: 51400 },
+        { date: 'Sep 10', portfolio: 81000, sp500: 51100 },
+        { date: 'Sep 15', portfolio: 85000, sp500: 51800 },
+        { date: 'Sep 20', portfolio: 87000, sp500: 52100 },
+        { date: 'Sep 25', portfolio: 89000, sp500: 52300 },
+        { date: 'Oct 01', portfolio: 90000, sp500: 52500 },
+    ],
+    '6M': [
+        { date: 'May', portfolio: 65000, sp500: 48000 },
+        { date: 'Jun', portfolio: 68000, sp500: 49200 },
+        { date: 'Jul', portfolio: 72000, sp500: 49500 },
+        { date: 'Aug', portfolio: 78000, sp500: 50800 },
+        { date: 'Sep', portfolio: 85000, sp500: 51500 },
+        { date: 'Oct', portfolio: 90000, sp500: 52500 },
+    ],
+    'YTD': [
+        { date: 'Jan', portfolio: 45000, sp500: 42000 },
+        { date: 'Feb', portfolio: 48000, sp500: 43500 },
+        { date: 'Mar', portfolio: 55000, sp500: 44200 },
+        { date: 'Apr', portfolio: 52000, sp500: 43800 },
+        { date: 'May', portfolio: 58000, sp500: 45000 },
+        { date: 'Jun', portfolio: 62000, sp500: 46500 },
+        { date: 'Jul', portfolio: 68000, sp500: 47800 },
+        { date: 'Aug', portfolio: 75000, sp500: 49000 },
+        { date: 'Sep', portfolio: 82000, sp500: 51000 },
+        { date: 'Oct', portfolio: 90000, sp500: 52500 },
+    ],
+    '1Y': [
+        { date: 'Oct 22', portfolio: 35000, sp500: 38000 },
+        { date: 'Dec 22', portfolio: 42000, sp500: 40000 },
+        { date: 'Feb 23', portfolio: 48000, sp500: 43500 },
+        { date: 'Apr 23', portfolio: 52000, sp500: 43800 },
+        { date: 'Jun 23', portfolio: 62000, sp500: 46500 },
+        { date: 'Aug 23', portfolio: 75000, sp500: 49000 },
+        { date: 'Oct 23', portfolio: 90000, sp500: 52500 },
+    ],
+    'ALL': [
+        { date: '2020', portfolio: 10000, sp500: 25000 },
+        { date: '2021', portfolio: 25000, sp500: 32000 },
+        { date: '2022', portfolio: 45000, sp500: 38000 },
+        { date: '2023', portfolio: 90000, sp500: 52500 },
+    ]
+};

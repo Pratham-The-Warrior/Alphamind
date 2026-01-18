@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PieChart, BarChart3, DollarSign } from 'lucide-react';
+import { BarChart3, DollarSign } from 'lucide-react';
 
 import {
-  portfolioHoldings,
-  sectorAllocation
+  portfolioHoldings
 } from '../services/mockData';
+import { SectorAllocation } from '../components/shared/SectorAllocation';
 
 const performanceMetrics = [
   { label: 'TOTAL VALUE', value: '₹70,47,293', change: '+12.4%' },
@@ -62,7 +62,7 @@ export const TerminalPortfolio: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {portfolioHoldings.map((holding) => (
+                {portfolioHoldings.map((holding: any) => (
                   <tr key={holding.symbol} className="border-b border-terminal-border hover:bg-terminal-surface">
                     <td className="p-2">
                       <div>
@@ -101,39 +101,14 @@ export const TerminalPortfolio: React.FC = () => {
         </motion.div>
 
         {/* Sector Allocation */}
+        {/* Sector Allocation */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="terminal-panel p-4"
+          className="h-full"
         >
-          <div className="flex items-center space-x-2 mb-4">
-            <PieChart className="w-4 h-4 text-terminal-blue" />
-            <span className="text-terminal-blue text-sm font-bold">SECTOR ALLOCATION</span>
-          </div>
-
-          <div className="space-y-3">
-            {sectorAllocation.map((sector) => (
-              <div key={sector.sector}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-terminal-text text-xs font-bold">{sector.sector}</span>
-                  <span className="text-terminal-text-dim text-xs">{sector.weight.toFixed(1)}%</span>
-                </div>
-                <div className="bg-terminal-surface h-2 rounded mb-1">
-                  <div
-                    className="bg-terminal-accent h-2 rounded"
-                    style={{ width: `${sector.weight}%` }}
-                  ></div>
-                </div>
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-terminal-text-muted">₹{sector.value.toLocaleString()}</span>
-                  <span className={sector.pnl >= 0 ? 'text-terminal-success' : 'text-terminal-danger'}>
-                    {sector.pnl >= 0 ? '+' : ''}₹{Math.abs(sector.pnl).toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <SectorAllocation />
         </motion.div>
       </div>
 

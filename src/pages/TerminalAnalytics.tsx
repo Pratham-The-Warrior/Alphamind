@@ -8,6 +8,10 @@ import {
   attributionData
 } from '../services/mockData';
 import { CorrelationMatrix } from '../components/analytics/CorrelationMatrix';
+import { BestDiversificationRatio } from '../components/analytics/BestDiversificationRatio';
+import { StressTestAnalysis } from '../components/analytics/StressTestAnalysis';
+import { MonteCarloSimulation } from '../components/analytics/MonteCarloSimulation';
+import { SunburstAllocation } from '../components/analytics/SunburstAllocation';
 
 export const TerminalAnalytics: React.FC = () => {
   const [leftWidth, setLeftWidth] = React.useState(33);
@@ -95,33 +99,45 @@ export const TerminalAnalytics: React.FC = () => {
 
       <div className={`flex space-x-2 min-h-[500px] ${isResizing ? 'select-none' : ''}`}>
         {/* Risk Metrics */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="terminal-panel p-4"
-          style={{ width: `${leftWidth}%` }}
-        >
-          <div className="flex items-center space-x-2 mb-4">
-            <Target className="w-4 h-4 text-terminal-warning" />
-            <span className="text-terminal-warning text-sm font-bold">RISK METRICS</span>
-          </div>
+        <div className="flex flex-col space-y-4" style={{ width: `${leftWidth}%` }}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="terminal-panel p-4"
+          >
+            <div className="flex items-center space-x-2 mb-4">
+              <Target className="w-4 h-4 text-terminal-warning" />
+              <span className="text-terminal-warning text-sm font-bold">RISK METRICS</span>
+            </div>
 
-          <div className="space-y-3">
-            {riskMetrics.map((risk) => (
-              <div key={risk.metric} className="bg-terminal-surface p-3 rounded">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-terminal-text text-xs font-bold">{risk.metric}</span>
-                  <span className={`font-mono text-sm ${risk.value.startsWith('-') ? 'text-terminal-danger' : 'text-terminal-success'
-                    }`}>
-                    {risk.value}
-                  </span>
+            <div className="space-y-3">
+              {riskMetrics.map((risk) => (
+                <div key={risk.metric} className="bg-terminal-surface p-3 rounded">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-terminal-text text-xs font-bold">{risk.metric}</span>
+                    <span className={`font-mono text-sm ${risk.value.startsWith('-') ? 'text-terminal-danger' : 'text-terminal-success'
+                      }`}>
+                      {risk.value}
+                    </span>
+                  </div>
+                  <div className="text-terminal-text-muted text-xs">{risk.description}</div>
                 </div>
-                <div className="text-terminal-text-muted text-xs">{risk.description}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+              ))}
+            </div>
+
+            <StressTestAnalysis />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex-1 min-h-[300px]"
+          >
+            <SunburstAllocation />
+          </motion.div>
+        </div>
 
         {/* Resizer Handle */}
         <div
@@ -132,9 +148,11 @@ export const TerminalAnalytics: React.FC = () => {
           <div className={`h-8 w-px bg-terminal-accent/50 group-hover:bg-terminal-accent ${isResizing ? 'opacity-100' : 'opacity-0'}`} />
         </div>
 
-        {/* Correlation Matrix */}
-        <div className="flex-1 min-w-0 overflow-hidden">
+        {/* Correlation Matrix & Diversification */}
+        <div className="flex-1 min-w-0 overflow-hidden flex flex-col space-y-4">
+          <BestDiversificationRatio />
           <CorrelationMatrix />
+          <MonteCarloSimulation />
         </div>
       </div>
 
